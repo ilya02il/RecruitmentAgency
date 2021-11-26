@@ -27,8 +27,9 @@ namespace RecruitmentAgency.UI
 
 			var container = AutofacDependencyBuilder.Build();
 
-			_controller = container.Resolve<IApplicationController>();
+			using var scope = container.BeginLifetimeScope();
 
+			_controller = scope.Resolve<IApplicationController>();
 			_controller.Run<AdminMainWindowPresenter, UserModel>();
 
 			//var dbContext = new DataContext();

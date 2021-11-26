@@ -30,6 +30,11 @@ namespace RecruitmentAgency.UI.Helpers
 				.InstancePerDependency();
 
 			containerBuilder
+				.RegisterType<AddVacancyForm>()
+				.As<IAddVacancyView>()
+				.InstancePerDependency();
+
+			containerBuilder
 				.Register(context => 
 					new DataContext()
 				)
@@ -54,10 +59,15 @@ namespace RecruitmentAgency.UI.Helpers
 			containerBuilder
 				.RegisterType<AdminMainWindowPresenter>()
 				.AsSelf()
-				.InstancePerLifetimeScope();
+				.InstancePerDependency();
 
 			containerBuilder
 				.RegisterType<AddAgencyWindowPresenter>()
+				.AsSelf()
+				.InstancePerLifetimeScope();
+
+			containerBuilder
+				.RegisterType<AddVacancyWindowPresenter>()
 				.AsSelf()
 				.InstancePerLifetimeScope();
 

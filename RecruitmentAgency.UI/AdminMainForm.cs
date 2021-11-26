@@ -1,8 +1,10 @@
-﻿using RecruitmentAgency.Models;
+﻿using RecruitmentAgency.DAL.Entities;
+using RecruitmentAgency.Models;
 using RecruitmentAgency.Presentations.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace RecruitmentAgency.UI
@@ -18,8 +20,11 @@ namespace RecruitmentAgency.UI
 		}
 
 		public Action AddAgency { get; set; }
+		public Func<AgencyModel, Task> DeleteAgency { get; set; }
+		public Action AddVacancy { get; set; }
+		public Func<VacancyModel, Task> DeleteVacancy { get; set; }
 
-		public IEnumerable<AgencyModel> Agencies
+        public IEnumerable<AgencyModel> Agencies
 		{
 			set => dataGridView1.LoadData(value, "Name");
 		}
@@ -52,12 +57,42 @@ namespace RecruitmentAgency.UI
 					AddAgency?.Invoke();
 					break;
 				case "vacanciesTabPage":
+					AddVacancy?.Invoke();
 					break;
 			}
 		}
-	}
 
-	internal static class DataGridViewExtension
+        private async void removeRecordBtn_Click(object sender, EventArgs e)
+        {
+			switch (tabControl1.SelectedTab.Name)
+			{
+				case "agenciesTabPage":
+					var selectedRow = dataGridView1.GetSelectedRow();
+
+					var selectedAgency = new AgencyModel()
+					{
+						Name = selectedRow.Cells["agencyNameColumn"].Value.ToString()
+					};
+
+					await DeleteAgency?.Invoke(selectedAgency);
+					break;
+				case "vacanciesTabPage":
+					selectedRow = dataGridView2.GetSelectedRow();
+
+					var selectedVacancy = new VacancyModel()
+					{
+						Position = selectedRow.Cells["vacancyPositionColumn"].Value.ToString(),
+						Salary = Convert.ToInt32(selectedRow.Cells["vacancySalaryColumn"].Value),
+						AgencyName = selectedRow.Cells["vacancyAgencyColumn"].Value.ToString()
+					};
+
+					await DeleteVacancy?.Invoke(selectedVacancy);
+					break;
+			}
+		}
+    }
+
+    internal static class DataGridViewExtension
 	{
 		public static void LoadData<TRecord>(this DataGridView dataGridView, IEnumerable<TRecord> records, params string[] properties)
 			where TRecord : class
@@ -81,5 +116,12 @@ namespace RecruitmentAgency.UI
 				dataGridView.Rows.Add(values.ToArray());
 			}
 		}
+
+		public static DataGridViewRow GetSelectedRow(this DataGridView dataGridView)
+        {
+			var selectedRowIndex = dataGridView.SelectedCells[0].RowIndex;
+
+			return dataGridView.Rows[selectedRowIndex];
+        }
 	}
 }

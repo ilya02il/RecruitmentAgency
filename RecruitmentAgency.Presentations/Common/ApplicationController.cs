@@ -4,17 +4,19 @@ namespace RecruitmentAgency.Presentations.Common
 {
 	public class ApplicationController : IApplicationController
 	{
-		private readonly IComponentContext _context;
+		private readonly ILifetimeScope _scope;
 
-		public ApplicationController(IComponentContext context)
+		public ApplicationController(ILifetimeScope scope)
 		{
-			_context = context;
+			_scope = scope;
 		}
 
 		public void Run<TPresenter, TArgument>(params TArgument[] arguments)
 			where TPresenter : class, IPresenter<TArgument>
 		{
-			var presenter = _context.Resolve<TPresenter>();
+			using var nestedScope = _scope.BeginLifetimeScope();
+
+			var presenter = nestedScope.Resolve<TPresenter>();
 			presenter.Run(arguments);
 		}
 	}

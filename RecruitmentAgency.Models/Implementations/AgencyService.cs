@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using RecruitmentAgency.DAL.Contracts;
 using RecruitmentAgency.DAL.Entities;
 using RecruitmentAgency.Models.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace RecruitmentAgency.Models.Implementations
@@ -45,6 +47,15 @@ namespace RecruitmentAgency.Models.Implementations
 			var entity = _mapper.Map<AgencyEntity>(agency);
 
 			await _dbRepository.Remove(entity);
+			await _dbRepository.SaveChangesAsync();
+		}
+
+		public async Task DeleteAgency(Expression<Func<AgencyEntity, bool>> predicate)
+		{
+			var entity = await _dbRepository.GetAll<AgencyEntity>().FirstAsync(predicate);
+
+			await _dbRepository.Remove(entity);
+			await _dbRepository.SaveChangesAsync();
 		}
 
 		public async Task UpdateAgencyInfo(AgencyModel agency)
@@ -52,6 +63,7 @@ namespace RecruitmentAgency.Models.Implementations
 			var entity = _mapper.Map<AgencyEntity>(agency);
 
 			await _dbRepository.Update(entity);
+			await _dbRepository.SaveChangesAsync();
 		}
 	}
 }

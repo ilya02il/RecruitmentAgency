@@ -21,7 +21,7 @@ namespace RecruitmentAgency.DAL.Implementations
 
 		public IQueryable<T> Get<T>(Expression<Func<T, bool>> selector) where T : class, IEntity
 		{
-			return _context.Set<T>().Where(selector).AsQueryable();
+			return _context.Set<T>().AsQueryable().Where(selector);
 		}
 		public IQueryable<T> GetAll<T>() where T : class, IEntity
 		{
