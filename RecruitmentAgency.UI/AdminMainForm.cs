@@ -1,5 +1,4 @@
-﻿using RecruitmentAgency.DAL.Entities;
-using RecruitmentAgency.Models;
+﻿using RecruitmentAgency.Models;
 using RecruitmentAgency.Presentations.Views;
 using System;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ using System.Windows.Forms;
 
 namespace RecruitmentAgency.UI
 {
-	public partial class AdminMainForm : Form, IAdminMainView
+    public partial class AdminMainForm : Form, IAdminMainView
 	{
 		private readonly ApplicationContext _context;
 		public AdminMainForm(ApplicationContext context)
@@ -45,45 +44,45 @@ namespace RecruitmentAgency.UI
 			else
 			{
 				Application.Run(_context);
-			}
+            }
 
-		}
+        }
 
-		private void addNewRecordBtn_Click(object sender, EventArgs e)
-		{
-			switch (tabControl1.SelectedTab.Name)
-			{
-				case "agenciesTabPage":
+        private void addNewRecordBtn_Click(object sender, EventArgs e)
+        {
+            switch (tabControl1.SelectedTab.Name)
+            {
+				case nameof(agenciesTabPage):
 					AddAgency?.Invoke();
 					break;
-				case "vacanciesTabPage":
+				case nameof(vacanciesTabPage):
 					AddVacancy?.Invoke();
 					break;
 			}
-		}
+        }
 
         private async void removeRecordBtn_Click(object sender, EventArgs e)
         {
 			switch (tabControl1.SelectedTab.Name)
 			{
-				case "agenciesTabPage":
+				case nameof(agenciesTabPage):
 					var selectedRow = dataGridView1.GetSelectedRow();
 
 					var selectedAgency = new AgencyModel()
 					{
-						Name = selectedRow.Cells["agencyNameColumn"].Value.ToString()
+						Name = selectedRow.Cells[nameof(agencyNameColumn)].Value.ToString()
 					};
 
 					await DeleteAgency?.Invoke(selectedAgency);
 					break;
-				case "vacanciesTabPage":
+				case nameof(vacanciesTabPage):
 					selectedRow = dataGridView2.GetSelectedRow();
 
 					var selectedVacancy = new VacancyModel()
 					{
-						Position = selectedRow.Cells["vacancyPositionColumn"].Value.ToString(),
-						Salary = Convert.ToInt32(selectedRow.Cells["vacancySalaryColumn"].Value),
-						AgencyName = selectedRow.Cells["vacancyAgencyColumn"].Value.ToString()
+						Position = selectedRow.Cells[nameof(vacancyPositionColumn)].Value.ToString(),
+						Salary = Convert.ToInt32(selectedRow.Cells[nameof(vacancySalaryColumn)].Value),
+						AgencyName = selectedRow.Cells[nameof(vacancyAgencyColumn)].Value.ToString()
 					};
 
 					await DeleteVacancy?.Invoke(selectedVacancy);

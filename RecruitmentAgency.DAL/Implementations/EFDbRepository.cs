@@ -59,7 +59,7 @@ namespace RecruitmentAgency.DAL.Implementations
 
 		public async Task Remove<T>(T entity) where T : class, IEntity
 		{
-			await Task.Run(() => _context.Set<T>().Remove(entity));
+			await Task.FromResult(_context.Set<T>().Remove(entity));
 		}
 
 		public async Task Remove<T>(Func<T, bool> selector) where T : class, IEntity

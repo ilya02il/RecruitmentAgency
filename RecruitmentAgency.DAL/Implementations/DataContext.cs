@@ -14,7 +14,7 @@ namespace RecruitmentAgancy.DAL
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-3J0KV7C\SQLEXPRESS;Database=RecruitmentAgencyDb;Integrated Security=True;");
+            optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Database=RecruitmentAgencyDb;Integrated Security=True;");
         }
     }
 }
