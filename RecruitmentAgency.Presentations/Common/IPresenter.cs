@@ -1,7 +1,12 @@
 ﻿namespace RecruitmentAgency.Presentations.Common
 {
+	public interface IPresenter
+	{
+		void Run();
+	}
 	public interface IPresenter<in TArg>
 	{
-		void Run(params TArg[] arguments);
+		void Run(TArg arguments);
+		void Run(params TArg[] argument);
 	}
 }

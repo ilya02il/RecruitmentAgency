@@ -9,8 +9,10 @@ namespace RecruitmentAgency.Presentations.Views
 	public interface IAdminMainView : IView
 	{
 		Action AddAgency { get; set; }
+		Action<AgencyModel> EditAgency { get; set; }
 		Func<AgencyModel, Task> DeleteAgency { get; set; }
 		Action AddVacancy { get; set; }
+		Action<VacancyModel> EditVacancy { get; set; }
 		Func<VacancyModel, Task> DeleteVacancy { get; set; }
 
 		IEnumerable<AgencyModel> Agencies { set; }

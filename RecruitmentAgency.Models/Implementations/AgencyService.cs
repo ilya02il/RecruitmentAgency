@@ -60,7 +60,7 @@ namespace RecruitmentAgency.Models.Implementations
 
 		public async Task UpdateAgencyInfo(AgencyModel agency)
 		{
-			var entity = _mapper.Map<AgencyEntity>(agency);
+			var entity = await _dbRepository.GetAll<AgencyEntity>().FirstAsync(a => a.Name == agency.Name);
 
 			await _dbRepository.Update(entity);
 			await _dbRepository.SaveChangesAsync();

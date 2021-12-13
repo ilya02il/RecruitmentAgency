@@ -20,8 +20,10 @@ namespace RecruitmentAgency.UI
 		}
 
 		public Action AddAgency { get; set; }
+		public Action<AgencyModel> EditAgency { get; set; }
 		public Func<AgencyModel, Task> DeleteAgency { get; set; }
 		public Action AddVacancy { get; set; }
+		public Action<VacancyModel> EditVacancy { get; set; }
 		public Func<VacancyModel, Task> DeleteVacancy { get; set; }
 
         public IEnumerable<AgencyModel> Agencies
@@ -53,37 +55,67 @@ namespace RecruitmentAgency.UI
 		{
 			switch (tabControl1.SelectedTab.Name)
 			{
-				case "agenciesTabPage":
+				case nameof(agenciesTabPage):
 					AddAgency?.Invoke();
 					break;
-				case "vacanciesTabPage":
+				case nameof(vacanciesTabPage):
 					AddVacancy?.Invoke();
 					break;
 			}
 		}
 
-        private async void removeRecordBtn_Click(object sender, EventArgs e)
-        {
+		private void editRecordBtn_Click(object sender, EventArgs e)
+		{
 			switch (tabControl1.SelectedTab.Name)
 			{
-				case "agenciesTabPage":
+				case nameof(agenciesTabPage):
 					var selectedRow = dataGridView1.GetSelectedRow();
 
 					var selectedAgency = new AgencyModel()
 					{
-						Name = selectedRow.Cells["agencyNameColumn"].Value.ToString()
+						Name = selectedRow.Cells[nameof(agencyNameColumn)].Value.ToString()
 					};
 
-					await DeleteAgency?.Invoke(selectedAgency);
+					EditAgency?.Invoke(selectedAgency);
 					break;
-				case "vacanciesTabPage":
+
+				case nameof(vacanciesTabPage):
 					selectedRow = dataGridView2.GetSelectedRow();
 
 					var selectedVacancy = new VacancyModel()
 					{
-						Position = selectedRow.Cells["vacancyPositionColumn"].Value.ToString(),
-						Salary = Convert.ToInt32(selectedRow.Cells["vacancySalaryColumn"].Value),
-						AgencyName = selectedRow.Cells["vacancyAgencyColumn"].Value.ToString()
+						Position = selectedRow.Cells[nameof(vacancyPositionColumn)].Value.ToString(),
+						Salary = Convert.ToInt32(selectedRow.Cells[nameof(vacancySalaryColumn)].Value),
+						AgencyName = selectedRow.Cells[nameof(vacancySalaryColumn)].Value.ToString()
+					};
+
+					EditVacancy?.Invoke(selectedVacancy);
+					break;
+			}
+		}
+
+		private async void removeRecordBtn_Click(object sender, EventArgs e)
+        {
+			switch (tabControl1.SelectedTab.Name)
+			{
+				case nameof(agenciesTabPage):
+					var selectedRow = dataGridView1.GetSelectedRow();
+
+					var selectedAgency = new AgencyModel()
+					{
+						Name = selectedRow.Cells[nameof(agencyNameColumn)].Value.ToString()
+					};
+
+					await DeleteAgency?.Invoke(selectedAgency);
+					break;
+				case nameof(vacanciesTabPage):
+					selectedRow = dataGridView2.GetSelectedRow();
+
+					var selectedVacancy = new VacancyModel()
+					{
+						Position = selectedRow.Cells[nameof(vacancyPositionColumn)].Value.ToString(),
+						Salary = Convert.ToInt32(selectedRow.Cells[nameof(vacancySalaryColumn)].Value),
+						AgencyName = selectedRow.Cells[nameof(vacancySalaryColumn)].Value.ToString()
 					};
 
 					await DeleteVacancy?.Invoke(selectedVacancy);

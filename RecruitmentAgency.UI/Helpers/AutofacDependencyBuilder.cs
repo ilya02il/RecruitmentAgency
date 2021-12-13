@@ -3,11 +3,13 @@ using AutoMapper;
 using RecruitmentAgancy.DAL;
 using RecruitmentAgency.DAL.Contracts;
 using RecruitmentAgency.DAL.Implementations;
+using RecruitmentAgency.Models;
 using RecruitmentAgency.Models.Contracts;
 using RecruitmentAgency.Models.Implementations;
 using RecruitmentAgency.Presentations.Common;
 using RecruitmentAgency.Presentations.Presenters;
 using RecruitmentAgency.Presentations.Views;
+using RecruitmentAgency.UI.Implementations;
 using RecruitmentAgency.UI.Profiles;
 using System.Windows.Forms;
 
@@ -26,12 +28,17 @@ namespace RecruitmentAgency.UI.Helpers
 
 			containerBuilder
 				.RegisterType<AddAgencyForm>()
-				.As<IAddAgencyView>()
+				.As<IAddView<AgencyModel>>()
+				.InstancePerDependency();
+
+			containerBuilder
+				.RegisterType<EditAgencyForm>()
+				.As<IEditView<AgencyModel>>()
 				.InstancePerDependency();
 
 			containerBuilder
 				.RegisterType<AddVacancyForm>()
-				.As<IAddVacancyView>()
+				.As<IAddView<VacancyModel, string>>()
 				.InstancePerDependency();
 
 			containerBuilder
@@ -63,6 +70,11 @@ namespace RecruitmentAgency.UI.Helpers
 
 			containerBuilder
 				.RegisterType<AddAgencyWindowPresenter>()
+				.AsSelf()
+				.InstancePerLifetimeScope();
+
+			containerBuilder
+				.RegisterType<EditAgencyWindowPresenter>()
 				.AsSelf()
 				.InstancePerLifetimeScope();
 

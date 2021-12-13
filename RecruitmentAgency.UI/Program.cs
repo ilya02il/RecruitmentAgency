@@ -30,7 +30,7 @@ namespace RecruitmentAgency.UI
 			using var scope = container.BeginLifetimeScope();
 
 			_controller = scope.Resolve<IApplicationController>();
-			_controller.Run<AdminMainWindowPresenter, UserModel>();
+			_controller.Run<AdminMainWindowPresenter>();
 
 			//var dbContext = new DataContext();
 
