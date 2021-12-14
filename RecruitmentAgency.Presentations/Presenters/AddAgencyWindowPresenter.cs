@@ -6,25 +6,20 @@ using System.Threading.Tasks;
 
 namespace RecruitmentAgency.Presentations.Presenters
 {
-	public class AddAgencyWindowPresenter : BasePresenter<IAddAgencyView, AgencyModel>
+	public class AddAgencyWindowPresenter : BasePresenter<IAddView<AgencyModel>>
 	{
 		private readonly IAgencyService _agencyService;
-		public AddAgencyWindowPresenter(IApplicationController controller, IAddAgencyView view, IAgencyService agencyService)
+		public AddAgencyWindowPresenter(IApplicationController controller, IAddView<AgencyModel> view, IAgencyService agencyService)
 			: base(controller, view)
 		{
 			_agencyService = agencyService;
 
-			View.AddAgency += AddAgencyAsync;
+			View.Add += AddAgencyAsync;
 		}
 
-		public override void Run(params AgencyModel[] arguments)
+		private async Task AddAgencyAsync()
 		{
-			View.Show();
-		}
-
-		public async Task AddAgencyAsync()
-		{
-			await _agencyService.AddAgency(View.NewAgency);
+			await _agencyService.AddAgency(View.NewModel);
 		}
 	}
 }

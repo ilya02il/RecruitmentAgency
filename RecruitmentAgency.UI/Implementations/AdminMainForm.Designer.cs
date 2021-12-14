@@ -53,13 +53,14 @@ namespace RecruitmentAgency.UI
             // 
             // toolStrip1
             // 
+            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addNewRecordBtn,
             this.editRecordBtn,
             this.removeRecordBtn});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1050, 35);
+            this.toolStrip1.Size = new System.Drawing.Size(1200, 35);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -83,6 +84,7 @@ namespace RecruitmentAgency.UI
             this.editRecordBtn.Name = "editRecordBtn";
             this.editRecordBtn.Size = new System.Drawing.Size(32, 32);
             this.editRecordBtn.Text = "toolStripButton2";
+            this.editRecordBtn.Click += new System.EventHandler(this.editRecordBtn_Click);
             // 
             // removeRecordBtn
             // 
@@ -97,96 +99,115 @@ namespace RecruitmentAgency.UI
             // 
             // tabControl1
             // 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.agenciesTabPage);
             this.tabControl1.Controls.Add(this.vacanciesTabPage);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(0, 35);
+            this.tabControl1.Location = new System.Drawing.Point(0, 47);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1050, 526);
+            this.tabControl1.Size = new System.Drawing.Size(1200, 701);
             this.tabControl1.TabIndex = 1;
             // 
             // agenciesTabPage
             // 
             this.agenciesTabPage.Controls.Add(this.dataGridView1);
-            this.agenciesTabPage.Location = new System.Drawing.Point(4, 24);
+            this.agenciesTabPage.Location = new System.Drawing.Point(4, 29);
+            this.agenciesTabPage.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.agenciesTabPage.Name = "agenciesTabPage";
-            this.agenciesTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.agenciesTabPage.Size = new System.Drawing.Size(1042, 498);
+            this.agenciesTabPage.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.agenciesTabPage.Size = new System.Drawing.Size(1192, 668);
             this.agenciesTabPage.TabIndex = 0;
             this.agenciesTabPage.Text = "Агенства";
             this.agenciesTabPage.UseVisualStyleBackColor = true;
             // 
             // dataGridView1
             // 
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.agencyNameColumn});
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 3);
+            this.dataGridView1.Location = new System.Drawing.Point(3, 4);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
+            this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 25;
-            this.dataGridView1.Size = new System.Drawing.Size(1036, 492);
+            this.dataGridView1.Size = new System.Drawing.Size(1184, 656);
             this.dataGridView1.TabIndex = 0;
             // 
             // agencyNameColumn
             // 
             this.agencyNameColumn.HeaderText = "Название";
+            this.agencyNameColumn.MinimumWidth = 6;
             this.agencyNameColumn.Name = "agencyNameColumn";
             // 
             // vacanciesTabPage
             // 
             this.vacanciesTabPage.Controls.Add(this.dataGridView2);
-            this.vacanciesTabPage.Location = new System.Drawing.Point(4, 24);
+            this.vacanciesTabPage.Location = new System.Drawing.Point(4, 29);
+            this.vacanciesTabPage.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.vacanciesTabPage.Name = "vacanciesTabPage";
-            this.vacanciesTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.vacanciesTabPage.Size = new System.Drawing.Size(1042, 498);
+            this.vacanciesTabPage.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.vacanciesTabPage.Size = new System.Drawing.Size(1192, 668);
             this.vacanciesTabPage.TabIndex = 1;
             this.vacanciesTabPage.Text = "Вакансии";
             this.vacanciesTabPage.UseVisualStyleBackColor = true;
             // 
             // dataGridView2
             // 
+            this.dataGridView2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.vacancyPositionColumn,
             this.vacancySalaryColumn,
             this.vacancyAgencyColumn});
-            this.dataGridView2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView2.Location = new System.Drawing.Point(3, 3);
+            this.dataGridView2.Location = new System.Drawing.Point(3, 4);
+            this.dataGridView2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.RowHeadersVisible = false;
+            this.dataGridView2.RowHeadersWidth = 51;
             this.dataGridView2.RowTemplate.Height = 25;
-            this.dataGridView2.Size = new System.Drawing.Size(1036, 492);
+            this.dataGridView2.Size = new System.Drawing.Size(1184, 656);
             this.dataGridView2.TabIndex = 1;
             // 
             // vacancyPositionColumn
             // 
             this.vacancyPositionColumn.HeaderText = "Должность";
+            this.vacancyPositionColumn.MinimumWidth = 6;
             this.vacancyPositionColumn.Name = "vacancyPositionColumn";
             // 
             // vacancySalaryColumn
             // 
             this.vacancySalaryColumn.HeaderText = "Оклад";
+            this.vacancySalaryColumn.MinimumWidth = 6;
             this.vacancySalaryColumn.Name = "vacancySalaryColumn";
             // 
             // vacancyAgencyColumn
             // 
             this.vacancyAgencyColumn.HeaderText = "Название агенства";
+            this.vacancyAgencyColumn.MinimumWidth = 6;
             this.vacancyAgencyColumn.Name = "vacancyAgencyColumn";
             // 
             // AdminMainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1050, 561);
+            this.ClientSize = new System.Drawing.Size(1200, 748);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.toolStrip1);
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "AdminMainForm";
             this.Text = "Form1";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.tabControl1.ResumeLayout(false);

@@ -1,13 +1,16 @@
 ﻿using Autofac;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using RecruitmentAgancy.DAL;
 using RecruitmentAgency.DAL.Contracts;
 using RecruitmentAgency.DAL.Implementations;
+using RecruitmentAgency.Models;
 using RecruitmentAgency.Models.Contracts;
 using RecruitmentAgency.Models.Implementations;
 using RecruitmentAgency.Presentations.Common;
 using RecruitmentAgency.Presentations.Presenters;
 using RecruitmentAgency.Presentations.Views;
+using RecruitmentAgency.UI.Implementations;
 using RecruitmentAgency.UI.Profiles;
 using System.Windows.Forms;
 
@@ -25,18 +28,44 @@ namespace RecruitmentAgency.UI.Helpers
 				.InstancePerDependency();
 
 			containerBuilder
+				.RegisterType<AgencyMainForm>()
+				.As<IAgencyMainView>()
+				.InstancePerDependency();
+
+			containerBuilder
+				.RegisterType<LoginForm>()
+				.As<ILoginView>()
+				.InstancePerDependency();
+
+			containerBuilder
+				.RegisterType<InitializationForm>()
+				.As<IInitializationView>()
+				.InstancePerDependency();
+
+			containerBuilder
 				.RegisterType<AddAgencyForm>()
-				.As<IAddAgencyView>()
+				.As<IAddView<AgencyModel>>()
+				.InstancePerDependency();
+
+			containerBuilder
+				.RegisterType<EditAgencyForm>()
+				.As<IEditView<AgencyModel>>()
 				.InstancePerDependency();
 
 			containerBuilder
 				.RegisterType<AddVacancyForm>()
-				.As<IAddVacancyView>()
+				.As<IAddView<VacancyModel, string>>()
 				.InstancePerDependency();
 
 			containerBuilder
-				.Register(context => 
-					new DataContext()
+				.Register(context =>
+					{
+						var builder = new DbContextOptionsBuilder<DataContext>();
+
+						builder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Database=RecruitmentAgencyDb;Integrated Security=True;");
+
+						return new DataContext(builder.Options);
+					}
 				)
 				.AsSelf()
 				.InstancePerLifetimeScope();
@@ -59,10 +88,30 @@ namespace RecruitmentAgency.UI.Helpers
 			containerBuilder
 				.RegisterType<AdminMainWindowPresenter>()
 				.AsSelf()
-				.InstancePerDependency();
+				.SingleInstance();
+
+			containerBuilder
+				.RegisterType<AgencyMainWindowPresenter>()
+				.AsSelf()
+				.SingleInstance();
+
+			containerBuilder
+				.RegisterType<LoginWindowPresenter>()
+				.AsSelf()
+				.InstancePerLifetimeScope();
+
+			containerBuilder
+				.RegisterType<InitializationWindowPresenter>()
+				.AsSelf()
+				.InstancePerLifetimeScope();
 
 			containerBuilder
 				.RegisterType<AddAgencyWindowPresenter>()
+				.AsSelf()
+				.InstancePerLifetimeScope();
+
+			containerBuilder
+				.RegisterType<EditAgencyWindowPresenter>()
 				.AsSelf()
 				.InstancePerLifetimeScope();
 
@@ -72,8 +121,8 @@ namespace RecruitmentAgency.UI.Helpers
 				.InstancePerLifetimeScope();
 
 			containerBuilder
-				.RegisterType<AccountService>()
-				.As<IAccountService>()
+				.RegisterType<UserService>()
+				.As<IUserService>()
 				.InstancePerLifetimeScope();
 
 			containerBuilder

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RecruitmentAgancy.DAL;
 
 namespace RecruitmentAgency.DAL.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20211213081905_AddRolesSeeds")]
+    partial class AddRolesSeeds
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -136,29 +138,6 @@ namespace RecruitmentAgency.DAL.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Login = "admin",
-                            Password = "admin",
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Login = "agency",
-                            Password = "agency",
-                            RoleId = 2
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Login = "recruit",
-                            Password = "recruit",
-                            RoleId = 3
-                        });
                 });
 
             modelBuilder.Entity("RecruitmentAgency.DAL.Entities.VacancyEntity", b =>

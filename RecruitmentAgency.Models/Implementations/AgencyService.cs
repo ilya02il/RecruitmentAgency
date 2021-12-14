@@ -58,12 +58,22 @@ namespace RecruitmentAgency.Models.Implementations
 			await _dbRepository.SaveChangesAsync();
 		}
 
-		public async Task UpdateAgencyInfo(AgencyModel agency)
+		public async Task UpdateAgencyInfo(AgencyModel agency, int originalId)
 		{
-			var entity = _mapper.Map<AgencyEntity>(agency);
+			var entity = await _dbRepository.GetAll<AgencyEntity>().FirstAsync(a => a.Id == originalId);
+
+			entity.Name = agency.Name;
 
 			await _dbRepository.Update(entity);
-			await _dbRepository.SaveChangesAsync();
+			_dbRepository.SaveChanges();
 		}
+
+		public int GetAgencyId(AgencyModel agency)
+        {
+			var entity = _dbRepository.GetAll<AgencyEntity>()
+				.First(a => a.Name == agency.Name);
+			
+			return entity.Id;
+        }
 	}
 }

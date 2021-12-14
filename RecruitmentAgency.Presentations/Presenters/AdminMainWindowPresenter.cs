@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace RecruitmentAgency.Presentations.Presenters
 {
-    public class AdminMainWindowPresenter : BasePresenter<IAdminMainView, UserModel>
+    public class AdminMainWindowPresenter : BasePresenter<IAdminMainView>
 	{
 		private readonly IAgencyService _agencyService;
 		private readonly IVacancyService _vacancyService;
@@ -19,7 +19,7 @@ namespace RecruitmentAgency.Presentations.Presenters
 
 			View.AddAgency += () =>
 			{
-				Controller.Run<AddAgencyWindowPresenter, AgencyModel>();
+				Controller.Run<AddAgencyWindowPresenter>();
 				View.Agencies = _agencyService.GetAllAgencies();
 			};
 
@@ -31,22 +31,34 @@ namespace RecruitmentAgency.Presentations.Presenters
 				View.Vacancies = _vacancyService.GetAllVacancies();
 			};
 
+			View.EditAgency += EditAgency;
 			View.DeleteAgency += DeleteAgency;
 			View.DeleteVacancy += DeleteVacancy;
 		}
 
-		public override void Run(params UserModel[] arguments)
-		{
+        public override void Run()
+        {
 			View.Agencies = _agencyService.GetAllAgencies();
 			View.Vacancies = _vacancyService.GetAllVacancies();
 			View.Show();
 		}
 
-		private async Task DeleteAgency(AgencyModel agency)
+		private void EditAgency(AgencyModel agency)
+        {
+			Controller.Run<EditAgencyWindowPresenter, AgencyModel>(agency);
+			View.Agencies = _agencyService.GetAllAgencies();
+        }
+        private async Task DeleteAgency(AgencyModel agency)
         {
 			await _agencyService.DeleteAgency(a => a.Name == agency.Name);
 			View.Agencies = _agencyService.GetAllAgencies();
 		}
+
+		//private void EditVacancy(VacancyModel vacancy)
+		//{
+		//	Controller.Run<EditVacancyWindowPresenter, VacancyModel>(vacancy);
+		//	View.Vacancies = _vacancyService.GetAllVacancies();
+		//}
 		private async Task DeleteVacancy(VacancyModel vacancy)
 		{
 			await _vacancyService.DeleteVacancy(v => v.Position == vacancy.Position &&

@@ -12,6 +12,7 @@ namespace RecruitmentAgency.Models.Contracts
 		Task DeleteAgency(AgencyModel agency);
 		Task DeleteAgency(Expression<Func<AgencyEntity, bool>> predicate);
 		IEnumerable<AgencyModel> GetAllAgencies();
-		Task UpdateAgencyInfo(AgencyModel agency);
+		Task UpdateAgencyInfo(AgencyModel agency, int originalId);
+		int GetAgencyId(AgencyModel agency);
 	}
 }
