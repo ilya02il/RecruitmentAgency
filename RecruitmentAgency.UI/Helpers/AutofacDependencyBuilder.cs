@@ -38,6 +38,11 @@ namespace RecruitmentAgency.UI.Helpers
 				.InstancePerDependency();
 
 			containerBuilder
+				.RegisterType<RegistrationForm>()
+				.As<IRegistrationView>()
+				.InstancePerDependency();
+
+			containerBuilder
 				.RegisterType<InitializationForm>()
 				.As<IInitializationView>()
 				.InstancePerDependency();
@@ -97,6 +102,11 @@ namespace RecruitmentAgency.UI.Helpers
 
 			containerBuilder
 				.RegisterType<LoginWindowPresenter>()
+				.AsSelf()
+				.InstancePerLifetimeScope();
+
+			containerBuilder
+				.RegisterType<RegistrationWindowPresenter>()
 				.AsSelf()
 				.InstancePerLifetimeScope();
 

@@ -35,12 +35,14 @@ namespace RecruitmentAgency.Models.Implementations
 
         public async Task<int> Register(UserModel newUser)
         {
+            var users = await _dbRepository.GetAll<UserEntity>().FirstOrDefaultAsync(u => u.Login == newUser.Login);
+
+            if (users != null)
+                throw new Exception("User with this login already exist.");
+
             var entity = _mapper.Map<UserEntity>(newUser);
 
             var result = await _dbRepository.Add(entity);
-
-            if (result == 0)
-                throw new Exception("User wasn't added.");
 
             await _dbRepository.SaveChangesAsync();
 

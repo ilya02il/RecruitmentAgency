@@ -29,6 +29,8 @@ namespace RecruitmentAgency.UI.Implementations
             _context = context;
 
             InitializeComponent();
+
+            registrationLinkLabel.Click += (source, args) => Register?.Invoke();
         }
 
         public new void Show()

@@ -18,6 +18,7 @@ namespace RecruitmentAgency.Presentations.Presenters
             Controller.Run<InitializationWindowPresenter>();
 
             View.Login += Authenticate;
+            View.Register += Register;
         }
 
         private async Task Authenticate()
@@ -32,9 +33,7 @@ namespace RecruitmentAgency.Presentations.Presenters
 
                 user = await _userService.Authenticate(user);
 
-                var userRole = (Roles)user.RoleId;
-
-                switch (userRole)
+                switch (user.RoleId)
                 {
                     case Roles.Admin:
                         Controller.Run<AdminMainWindowPresenter>();
@@ -55,6 +54,11 @@ namespace RecruitmentAgency.Presentations.Presenters
                     View.Password = string.Empty;
                 }
             }
+        }
+
+        private void Register()
+        {
+            Controller.Run<RegistrationWindowPresenter, string>();
         }
     }
 }

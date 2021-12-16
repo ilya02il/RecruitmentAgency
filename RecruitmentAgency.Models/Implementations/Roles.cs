@@ -1,9 +1,9 @@
 ﻿namespace RecruitmentAgency.Models.Implementations
 {
-    public enum Roles
+    public static class Roles
     {
-        Admin = 1,
-        Agency = 2,
-        Recruit = 3
+        public const int Admin   = 1;
+        public const int Agency  = 2;
+        public const int Recruit = 3;
     }
 }
