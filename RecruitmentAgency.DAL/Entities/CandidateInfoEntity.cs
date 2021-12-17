@@ -1,20 +1,21 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace RecruitmentAgency.DAL.Entities
 {
-    public class VacancyEntity : IEntity
+    public class CandidateInfoEntity : IEntity
     {
         public int Id { get; set; }
         [Required]
-        public string Position { get; set; }
+        public string Initials { get; set; }
         [Required]
-        public int Salary { get; set; }
+        public DateTime DateOfBorn { get; set; }
 
         [Required]
-        public int EmployerId { get; set; }
+        public int UserId { get; set; }
         [Required]
-        public EmployerInfoEntity Employer { get; set; }
+        public UserEntity User { get; set; }
 
         public ICollection<VacancyCandidatesEntity> VacancyCandidates { get; set; }
     }

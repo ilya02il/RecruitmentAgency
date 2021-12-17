@@ -34,21 +34,22 @@ namespace RecruitmentAgency.UI
             this.addNewRecordBtn = new System.Windows.Forms.ToolStripButton();
             this.editRecordBtn = new System.Windows.Forms.ToolStripButton();
             this.removeRecordBtn = new System.Windows.Forms.ToolStripButton();
+            this.showCandidatesBtn = new System.Windows.Forms.ToolStripButton();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.agenciesTabPage = new System.Windows.Forms.TabPage();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.agencyNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.vacanciesTabPage = new System.Windows.Forms.TabPage();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.vacanciesDataGridView = new System.Windows.Forms.DataGridView();
+            this.vacancyEmployerColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.vacancyPositionColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.vacancySalaryColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.vacancyAgencyColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.employersTabPage = new System.Windows.Forms.TabPage();
+            this.employersDataGridView = new System.Windows.Forms.DataGridView();
+            this.organizationNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
-            this.agenciesTabPage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.vacanciesTabPage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.vacanciesDataGridView)).BeginInit();
+            this.employersTabPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.employersDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -57,10 +58,11 @@ namespace RecruitmentAgency.UI
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addNewRecordBtn,
             this.editRecordBtn,
-            this.removeRecordBtn});
+            this.removeRecordBtn,
+            this.showCandidatesBtn});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1200, 35);
+            this.toolStrip1.Size = new System.Drawing.Size(1050, 35);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -73,7 +75,6 @@ namespace RecruitmentAgency.UI
             this.addNewRecordBtn.Name = "addNewRecordBtn";
             this.addNewRecordBtn.Size = new System.Drawing.Size(32, 32);
             this.addNewRecordBtn.Text = "toolStripButton1";
-            this.addNewRecordBtn.Click += new System.EventHandler(this.addNewRecordBtn_Click);
             // 
             // editRecordBtn
             // 
@@ -97,87 +98,66 @@ namespace RecruitmentAgency.UI
             this.removeRecordBtn.Text = "toolStripButton3";
             this.removeRecordBtn.Click += new System.EventHandler(this.removeRecordBtn_Click);
             // 
+            // showCandidatesBtn
+            // 
+            this.showCandidatesBtn.AutoSize = false;
+            this.showCandidatesBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.showCandidatesBtn.Image = ((System.Drawing.Image)(resources.GetObject("showCandidatesBtn.Image")));
+            this.showCandidatesBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.showCandidatesBtn.Name = "showCandidatesBtn";
+            this.showCandidatesBtn.Size = new System.Drawing.Size(32, 32);
+            this.showCandidatesBtn.Text = "toolStripButton1";
+            this.showCandidatesBtn.Click += new System.EventHandler(this.showCandidatesBtn_Click);
+            // 
             // tabControl1
             // 
             this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl1.Controls.Add(this.agenciesTabPage);
             this.tabControl1.Controls.Add(this.vacanciesTabPage);
-            this.tabControl1.Location = new System.Drawing.Point(0, 47);
-            this.tabControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tabControl1.Controls.Add(this.employersTabPage);
+            this.tabControl1.Location = new System.Drawing.Point(0, 35);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1200, 701);
+            this.tabControl1.Size = new System.Drawing.Size(1050, 526);
             this.tabControl1.TabIndex = 1;
-            // 
-            // agenciesTabPage
-            // 
-            this.agenciesTabPage.Controls.Add(this.dataGridView1);
-            this.agenciesTabPage.Location = new System.Drawing.Point(4, 29);
-            this.agenciesTabPage.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.agenciesTabPage.Name = "agenciesTabPage";
-            this.agenciesTabPage.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.agenciesTabPage.Size = new System.Drawing.Size(1192, 668);
-            this.agenciesTabPage.TabIndex = 0;
-            this.agenciesTabPage.Text = "Агенства";
-            this.agenciesTabPage.UseVisualStyleBackColor = true;
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.agencyNameColumn});
-            this.dataGridView1.Location = new System.Drawing.Point(3, 4);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowTemplate.Height = 25;
-            this.dataGridView1.Size = new System.Drawing.Size(1184, 656);
-            this.dataGridView1.TabIndex = 0;
-            // 
-            // agencyNameColumn
-            // 
-            this.agencyNameColumn.HeaderText = "Название";
-            this.agencyNameColumn.MinimumWidth = 6;
-            this.agencyNameColumn.Name = "agencyNameColumn";
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // vacanciesTabPage
             // 
-            this.vacanciesTabPage.Controls.Add(this.dataGridView2);
-            this.vacanciesTabPage.Location = new System.Drawing.Point(4, 29);
-            this.vacanciesTabPage.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.vacanciesTabPage.Controls.Add(this.vacanciesDataGridView);
+            this.vacanciesTabPage.Location = new System.Drawing.Point(4, 24);
             this.vacanciesTabPage.Name = "vacanciesTabPage";
-            this.vacanciesTabPage.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.vacanciesTabPage.Size = new System.Drawing.Size(1192, 668);
+            this.vacanciesTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.vacanciesTabPage.Size = new System.Drawing.Size(1042, 498);
             this.vacanciesTabPage.TabIndex = 1;
             this.vacanciesTabPage.Text = "Вакансии";
             this.vacanciesTabPage.UseVisualStyleBackColor = true;
             // 
-            // dataGridView2
+            // vacanciesDataGridView
             // 
-            this.dataGridView2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.vacanciesDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.vacanciesDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.vacanciesDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.vacanciesDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.vacancyEmployerColumn,
             this.vacancyPositionColumn,
-            this.vacancySalaryColumn,
-            this.vacancyAgencyColumn});
-            this.dataGridView2.Location = new System.Drawing.Point(3, 4);
-            this.dataGridView2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.RowHeadersVisible = false;
-            this.dataGridView2.RowHeadersWidth = 51;
-            this.dataGridView2.RowTemplate.Height = 25;
-            this.dataGridView2.Size = new System.Drawing.Size(1184, 656);
-            this.dataGridView2.TabIndex = 1;
+            this.vacancySalaryColumn});
+            this.vacanciesDataGridView.Location = new System.Drawing.Point(3, 3);
+            this.vacanciesDataGridView.Name = "vacanciesDataGridView";
+            this.vacanciesDataGridView.RowHeadersVisible = false;
+            this.vacanciesDataGridView.RowHeadersWidth = 51;
+            this.vacanciesDataGridView.RowTemplate.Height = 25;
+            this.vacanciesDataGridView.Size = new System.Drawing.Size(1036, 492);
+            this.vacanciesDataGridView.TabIndex = 1;
+            // 
+            // vacancyEmployerColumn
+            // 
+            this.vacancyEmployerColumn.HeaderText = "Работодатель";
+            this.vacancyEmployerColumn.MinimumWidth = 6;
+            this.vacancyEmployerColumn.Name = "vacancyEmployerColumn";
             // 
             // vacancyPositionColumn
             // 
@@ -191,30 +171,53 @@ namespace RecruitmentAgency.UI
             this.vacancySalaryColumn.MinimumWidth = 6;
             this.vacancySalaryColumn.Name = "vacancySalaryColumn";
             // 
-            // vacancyAgencyColumn
+            // employersTabPage
             // 
-            this.vacancyAgencyColumn.HeaderText = "Название агенства";
-            this.vacancyAgencyColumn.MinimumWidth = 6;
-            this.vacancyAgencyColumn.Name = "vacancyAgencyColumn";
+            this.employersTabPage.Controls.Add(this.employersDataGridView);
+            this.employersTabPage.Location = new System.Drawing.Point(4, 24);
+            this.employersTabPage.Name = "employersTabPage";
+            this.employersTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.employersTabPage.Size = new System.Drawing.Size(1042, 498);
+            this.employersTabPage.TabIndex = 2;
+            this.employersTabPage.Text = "Работодатели";
+            this.employersTabPage.UseVisualStyleBackColor = true;
+            // 
+            // employersDataGridView
+            // 
+            this.employersDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.employersDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.employersDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.organizationNameColumn});
+            this.employersDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.employersDataGridView.Location = new System.Drawing.Point(3, 3);
+            this.employersDataGridView.Name = "employersDataGridView";
+            this.employersDataGridView.RowHeadersVisible = false;
+            this.employersDataGridView.RowTemplate.Height = 25;
+            this.employersDataGridView.Size = new System.Drawing.Size(1036, 492);
+            this.employersDataGridView.TabIndex = 0;
+            // 
+            // organizationNameColumn
+            // 
+            this.organizationNameColumn.HeaderText = "Название организации";
+            this.organizationNameColumn.Name = "organizationNameColumn";
             // 
             // AdminMainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1200, 748);
+            this.ClientSize = new System.Drawing.Size(1050, 561);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.toolStrip1);
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "AdminMainForm";
             this.Text = "Form1";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
-            this.agenciesTabPage.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.vacanciesTabPage.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.vacanciesDataGridView)).EndInit();
+            this.employersTabPage.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.employersDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -224,17 +227,18 @@ namespace RecruitmentAgency.UI
 
 		private System.Windows.Forms.ToolStrip toolStrip1;
 		private System.Windows.Forms.TabControl tabControl1;
-		private System.Windows.Forms.TabPage agenciesTabPage;
-		private System.Windows.Forms.DataGridView dataGridView1;
-		private System.Windows.Forms.DataGridViewTextBoxColumn agencyNameColumn;
 		private System.Windows.Forms.TabPage vacanciesTabPage;
-		private System.Windows.Forms.DataGridView dataGridView2;
-		private System.Windows.Forms.DataGridViewTextBoxColumn vacancyPositionColumn;
-		private System.Windows.Forms.DataGridViewTextBoxColumn vacancySalaryColumn;
+		private System.Windows.Forms.DataGridView vacanciesDataGridView;
 		private System.Windows.Forms.ToolStripButton addNewRecordBtn;
 		private System.Windows.Forms.ToolStripButton editRecordBtn;
-		private System.Windows.Forms.DataGridViewTextBoxColumn vacancyAgencyColumn;
 		private System.Windows.Forms.ToolStripButton removeRecordBtn;
-	}
+        private System.Windows.Forms.TabPage employersTabPage;
+        private System.Windows.Forms.DataGridView employersDataGridView;
+        private System.Windows.Forms.DataGridViewTextBoxColumn organizationNameColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn vacancyEmployerColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn vacancyPositionColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn vacancySalaryColumn;
+        private System.Windows.Forms.ToolStripButton showCandidatesBtn;
+    }
 }
 

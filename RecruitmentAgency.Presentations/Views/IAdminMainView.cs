@@ -8,14 +8,13 @@ namespace RecruitmentAgency.Presentations.Views
 {
 	public interface IAdminMainView : IView
 	{
-		Action AddAgency { get; set; }
-		Action<AgencyModel> EditAgency { get; set; }
-		Func<AgencyModel, Task> DeleteAgency { get; set; }
 		Action AddVacancy { get; set; }
 		Action<VacancyModel> EditVacancy { get; set; }
+		Action<VacancyModel> ShowCandidates { get; set; }
 		Func<VacancyModel, Task> DeleteVacancy { get; set; }
+		Func<EmployerModel, Task> DeleteEmployer { get; set; }
 
-		IEnumerable<AgencyModel> Agencies { set; }
 		IEnumerable<VacancyModel> Vacancies { set; }
+		IEnumerable<EmployerModel> Employers { set; }
 	}
 }

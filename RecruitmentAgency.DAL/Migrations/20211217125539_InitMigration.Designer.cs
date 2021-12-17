@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RecruitmentAgancy.DAL;
 
 namespace RecruitmentAgency.DAL.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20211217125539_InitMigration")]
+    partial class InitMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,6 +34,13 @@ namespace RecruitmentAgency.DAL.Migrations
                     b.Property<string>("Initials")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Position")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Salary")
+                        .HasColumnType("int");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -157,7 +166,10 @@ namespace RecruitmentAgency.DAL.Migrations
                     b.Property<int>("CandidateId")
                         .HasColumnType("int");
 
-                    b.Property<int>("VacancyId")
+                    b.Property<int?>("VacancyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VancancyId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -236,9 +248,7 @@ namespace RecruitmentAgency.DAL.Migrations
 
                     b.HasOne("RecruitmentAgency.DAL.Entities.VacancyEntity", "Vacancy")
                         .WithMany("VacancyCandidates")
-                        .HasForeignKey("VacancyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("VacancyId");
 
                     b.Navigation("Candidate");
 

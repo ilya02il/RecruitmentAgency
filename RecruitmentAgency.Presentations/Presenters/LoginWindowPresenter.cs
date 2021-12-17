@@ -38,7 +38,10 @@ namespace RecruitmentAgency.Presentations.Presenters
                     case Roles.Admin:
                         Controller.Run<AdminMainWindowPresenter>();
                         break;
-                    case Roles.Agency:
+                    case Roles.Employer:
+                        Controller.Run<EmployerMainWindowPresenter>();
+                        break;
+                    case Roles.Candidate:
                         Controller.Run<AgencyMainWindowPresenter>();
                         break;
                 }

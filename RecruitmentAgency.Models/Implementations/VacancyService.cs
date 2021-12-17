@@ -24,7 +24,7 @@ namespace RecruitmentAgency.Models.Implementations
 
 		public IEnumerable<VacancyModel> GetAllVacancies()
 		{
-			var entities = _dbRepository.GetAll<VacancyEntity>().Include(v => v.Agency);
+			var entities = _dbRepository.GetAll<VacancyEntity>();
 
 			if (entities == null)
 				throw new NullReferenceException();
@@ -36,10 +36,11 @@ namespace RecruitmentAgency.Models.Implementations
 		{
 			var entity = _mapper.Map<VacancyEntity>(newVacancy);
 
-			var agency = await _dbRepository.Get<AgencyEntity>(a => a.Name == entity.Agency.Name).FirstAsync();
+			var employer = await _dbRepository.Get<EmployerInfoEntity>(e => e.Name == newVacancy.EmployerName)
+				.FirstAsync();
 
-			entity.AgencyId = agency.Id;
-			entity.Agency = null;
+			entity.EmployerId = employer.Id;
+			entity.Employer = null;
 
 			var result = await _dbRepository.Add(entity);
 			await _dbRepository.SaveChangesAsync();
@@ -57,7 +58,9 @@ namespace RecruitmentAgency.Models.Implementations
 
 		public async Task DeleteVacancy(Expression<Func<VacancyEntity, bool>> predicate)
 		{
-			var entity = await _dbRepository.GetAll<VacancyEntity>().Include(v => v.Agency).FirstAsync(predicate);
+			var entity = await _dbRepository.GetAll<VacancyEntity>()
+				.Include(v => v.Employer)
+				.FirstAsync(predicate);
 
 			await _dbRepository.Remove(entity);
 			await _dbRepository.SaveChangesAsync();
@@ -65,15 +68,48 @@ namespace RecruitmentAgency.Models.Implementations
 
 		public async Task UpdateVacancyInfo(VacancyModel vacancy)
 		{
+			//var innerEntity = _dbRepository.GetAll<VacancyEntity>().FirstAsync(v => v.Position && v.Salary)
 			var entity = _mapper.Map<VacancyEntity>(vacancy);
 
-			var agency = await _dbRepository.Get<AgencyEntity>(a => a.Name == entity.Agency.Name).FirstAsync();
+			var employer = await _dbRepository.Get<EmployerInfoEntity>(e => e.Name == vacancy.EmployerName)
+				.FirstAsync();
 
-			entity.AgencyId = agency.Id;
-			entity.Agency = null;
+			entity.EmployerId = employer.Id;
+			entity.Employer = null;
 
 			await _dbRepository.Update(entity);
 			await _dbRepository.SaveChangesAsync();
 		}
-	}
+
+		public IEnumerable<CandidateModel> GetVacancyCandidates(VacancyModel vacancy)
+        {
+			var vacancyCandidates = _dbRepository.GetAll<VacancyCandidatesEntity>()
+				.Include(vc => vc.Candidate)
+				.Where(vc => vc.VacancyId == vacancy.Id);
+
+			return vacancyCandidates.Select(vc => new CandidateModel
+			{
+				Initials = vc.Candidate.Initials,
+				DateOfBirth = vc.Candidate.DateOfBorn,
+				Position = vacancy.Position,
+				Salary = vacancy.Salary
+			});
+        }
+
+		public async Task AppendCandidate(CandidateModel candidate)
+        {
+			var candidateEntity = await _dbRepository.GetAll<CandidateInfoEntity>()
+				.FirstAsync(c => c.Initials == candidate.Initials && c.DateOfBorn == candidate.DateOfBirth);
+
+			var vacancyEntity = await _dbRepository.GetAll<VacancyEntity>()
+				.FirstAsync(v => v.Position == candidate.Position && v.Salary == candidate.Salary);
+
+            var vacancyCandidate = new VacancyCandidatesEntity
+            {
+				CandidateId = candidateEntity.Id,
+				VacancyId = candidateEntity.Id
+			};
+
+        }
+    }
 }

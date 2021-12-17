@@ -28,8 +28,8 @@ namespace RecruitmentAgency.UI.Helpers
 				.InstancePerDependency();
 
 			containerBuilder
-				.RegisterType<AgencyMainForm>()
-				.As<IAgencyMainView>()
+				.RegisterType<EmployerMainForm>()
+				.As<IEmployerMainView>()
 				.InstancePerDependency();
 
 			containerBuilder
@@ -48,16 +48,6 @@ namespace RecruitmentAgency.UI.Helpers
 				.InstancePerDependency();
 
 			containerBuilder
-				.RegisterType<AddAgencyForm>()
-				.As<IAddView<AgencyModel>>()
-				.InstancePerDependency();
-
-			containerBuilder
-				.RegisterType<EditAgencyForm>()
-				.As<IEditView<AgencyModel>>()
-				.InstancePerDependency();
-
-			containerBuilder
 				.RegisterType<AddVacancyForm>()
 				.As<IAddView<VacancyModel, string>>()
 				.InstancePerDependency();
@@ -67,7 +57,7 @@ namespace RecruitmentAgency.UI.Helpers
 					{
 						var builder = new DbContextOptionsBuilder<DataContext>();
 
-						builder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Database=RecruitmentAgencyDb;Integrated Security=True;");
+						builder.UseSqlServer("Data Source=DESKTOP-3J0KV7C\\SQLEXPRESS;Database=RecruitmentAgencyDb;Integrated Security=True;");
 
 						return new DataContext(builder.Options);
 					}
@@ -96,7 +86,7 @@ namespace RecruitmentAgency.UI.Helpers
 				.SingleInstance();
 
 			containerBuilder
-				.RegisterType<AgencyMainWindowPresenter>()
+				.RegisterType<EmployerMainWindowPresenter>()
 				.AsSelf()
 				.SingleInstance();
 
@@ -116,16 +106,6 @@ namespace RecruitmentAgency.UI.Helpers
 				.InstancePerLifetimeScope();
 
 			containerBuilder
-				.RegisterType<AddAgencyWindowPresenter>()
-				.AsSelf()
-				.InstancePerLifetimeScope();
-
-			containerBuilder
-				.RegisterType<EditAgencyWindowPresenter>()
-				.AsSelf()
-				.InstancePerLifetimeScope();
-
-			containerBuilder
 				.RegisterType<AddVacancyWindowPresenter>()
 				.AsSelf()
 				.InstancePerLifetimeScope();
@@ -136,13 +116,13 @@ namespace RecruitmentAgency.UI.Helpers
 				.InstancePerLifetimeScope();
 
 			containerBuilder
-				.RegisterType<AgencyService>()
-				.As<IAgencyService>()
+				.RegisterType<VacancyService>()
+				.As<IVacancyService>()
 				.InstancePerLifetimeScope();
 
 			containerBuilder
-				.RegisterType<VacancyService>()
-				.As<IVacancyService>()
+				.RegisterType<EmployerService>()
+				.As<IEmployerService>()
 				.InstancePerLifetimeScope();
 
 			containerBuilder

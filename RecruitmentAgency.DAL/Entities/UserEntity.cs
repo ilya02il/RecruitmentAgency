@@ -10,7 +10,10 @@ namespace RecruitmentAgency.DAL.Entities
 		[Required]
 		public string Password { get; set; }
 
-		[Required]
+        public CandidateInfoEntity CandidateInfo { get; set; }
+        public EmployerInfoEntity EmployerInfo { get; set; }
+
+        [Required]
 		public int RoleId { get; set; }
 		[Required]
 		public RoleEntity Role { get; set; }

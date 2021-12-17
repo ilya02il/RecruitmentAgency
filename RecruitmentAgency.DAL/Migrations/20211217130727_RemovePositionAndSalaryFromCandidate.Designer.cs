@@ -10,8 +10,8 @@ using RecruitmentAgancy.DAL;
 namespace RecruitmentAgency.DAL.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20211213081905_AddRolesSeeds")]
-    partial class AddRolesSeeds
+    [Migration("20211217130727_RemovePositionAndSalaryFromCandidate")]
+    partial class RemovePositionAndSalaryFromCandidate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,44 +21,7 @@ namespace RecruitmentAgency.DAL.Migrations
                 .HasAnnotation("ProductVersion", "5.0.11")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("RecruitmentAgency.DAL.Entities.AgencyCandidateEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AgencyId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CandidateId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AgencyId");
-
-                    b.HasIndex("CandidateId");
-
-                    b.ToTable("AgencyCandidates");
-                });
-
-            modelBuilder.Entity("RecruitmentAgency.DAL.Entities.AgencyEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Agencies");
-                });
-
-            modelBuilder.Entity("RecruitmentAgency.DAL.Entities.CandidateEntity", b =>
+            modelBuilder.Entity("RecruitmentAgency.DAL.Entities.CandidateInfoEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -69,17 +32,40 @@ namespace RecruitmentAgency.DAL.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Initials")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Position")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Salary")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Candidates");
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("CandidatesInfo");
+                });
+
+            modelBuilder.Entity("RecruitmentAgency.DAL.Entities.EmployerInfoEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("EmployersInfo");
                 });
 
             modelBuilder.Entity("RecruitmentAgency.DAL.Entities.RoleEntity", b =>
@@ -106,12 +92,12 @@ namespace RecruitmentAgency.DAL.Migrations
                         new
                         {
                             Id = 2,
-                            Name = "Agency"
+                            Name = "Employer"
                         },
                         new
                         {
                             Id = 3,
-                            Name = "Recruit"
+                            Name = "Candidate"
                         });
                 });
 
@@ -138,6 +124,54 @@ namespace RecruitmentAgency.DAL.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Login = "admin",
+                            Password = "admin",
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Login = "employer",
+                            Password = "employer",
+                            RoleId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Login = "candidate",
+                            Password = "candidate",
+                            RoleId = 3
+                        });
+                });
+
+            modelBuilder.Entity("RecruitmentAgency.DAL.Entities.VacancyCandidatesEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CandidateId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("VacancyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VancancyId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CandidateId");
+
+                    b.HasIndex("VacancyId");
+
+                    b.ToTable("VacancyCandidates");
                 });
 
             modelBuilder.Entity("RecruitmentAgency.DAL.Entities.VacancyEntity", b =>
@@ -147,10 +181,11 @@ namespace RecruitmentAgency.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AgencyId")
+                    b.Property<int>("EmployerId")
                         .HasColumnType("int");
 
                     b.Property<string>("Position")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Salary")
@@ -158,28 +193,31 @@ namespace RecruitmentAgency.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AgencyId");
+                    b.HasIndex("EmployerId");
 
                     b.ToTable("Vacancies");
                 });
 
-            modelBuilder.Entity("RecruitmentAgency.DAL.Entities.AgencyCandidateEntity", b =>
+            modelBuilder.Entity("RecruitmentAgency.DAL.Entities.CandidateInfoEntity", b =>
                 {
-                    b.HasOne("RecruitmentAgency.DAL.Entities.AgencyEntity", "Agency")
-                        .WithMany("AgencyCandidates")
-                        .HasForeignKey("AgencyId")
+                    b.HasOne("RecruitmentAgency.DAL.Entities.UserEntity", "User")
+                        .WithOne("CandidateInfo")
+                        .HasForeignKey("RecruitmentAgency.DAL.Entities.CandidateInfoEntity", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RecruitmentAgency.DAL.Entities.CandidateEntity", "Candidate")
-                        .WithMany("AgencyCandidates")
-                        .HasForeignKey("CandidateId")
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("RecruitmentAgency.DAL.Entities.EmployerInfoEntity", b =>
+                {
+                    b.HasOne("RecruitmentAgency.DAL.Entities.UserEntity", "User")
+                        .WithOne("EmployerInfo")
+                        .HasForeignKey("RecruitmentAgency.DAL.Entities.EmployerInfoEntity", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Agency");
-
-                    b.Navigation("Candidate");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("RecruitmentAgency.DAL.Entities.UserEntity", b =>
@@ -193,32 +231,54 @@ namespace RecruitmentAgency.DAL.Migrations
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("RecruitmentAgency.DAL.Entities.VacancyEntity", b =>
+            modelBuilder.Entity("RecruitmentAgency.DAL.Entities.VacancyCandidatesEntity", b =>
                 {
-                    b.HasOne("RecruitmentAgency.DAL.Entities.AgencyEntity", "Agency")
-                        .WithMany("Vacancies")
-                        .HasForeignKey("AgencyId")
+                    b.HasOne("RecruitmentAgency.DAL.Entities.CandidateInfoEntity", "Candidate")
+                        .WithMany("VacancyCandidates")
+                        .HasForeignKey("CandidateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Agency");
+                    b.HasOne("RecruitmentAgency.DAL.Entities.VacancyEntity", "Vacancy")
+                        .WithMany("VacancyCandidates")
+                        .HasForeignKey("VacancyId");
+
+                    b.Navigation("Candidate");
+
+                    b.Navigation("Vacancy");
                 });
 
-            modelBuilder.Entity("RecruitmentAgency.DAL.Entities.AgencyEntity", b =>
+            modelBuilder.Entity("RecruitmentAgency.DAL.Entities.VacancyEntity", b =>
                 {
-                    b.Navigation("AgencyCandidates");
+                    b.HasOne("RecruitmentAgency.DAL.Entities.EmployerInfoEntity", "Employer")
+                        .WithMany()
+                        .HasForeignKey("EmployerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Vacancies");
+                    b.Navigation("Employer");
                 });
 
-            modelBuilder.Entity("RecruitmentAgency.DAL.Entities.CandidateEntity", b =>
+            modelBuilder.Entity("RecruitmentAgency.DAL.Entities.CandidateInfoEntity", b =>
                 {
-                    b.Navigation("AgencyCandidates");
+                    b.Navigation("VacancyCandidates");
                 });
 
             modelBuilder.Entity("RecruitmentAgency.DAL.Entities.RoleEntity", b =>
                 {
                     b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("RecruitmentAgency.DAL.Entities.UserEntity", b =>
+                {
+                    b.Navigation("CandidateInfo");
+
+                    b.Navigation("EmployerInfo");
+                });
+
+            modelBuilder.Entity("RecruitmentAgency.DAL.Entities.VacancyEntity", b =>
+                {
+                    b.Navigation("VacancyCandidates");
                 });
 #pragma warning restore 612, 618
         }

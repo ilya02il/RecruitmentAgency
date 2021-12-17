@@ -1,8 +1,8 @@
 ﻿using RecruitmentAgency.Models;
 using RecruitmentAgency.Presentations.Views;
+using RecruitmentAgency.UI.Helpers;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -16,23 +16,25 @@ namespace RecruitmentAgency.UI
 			_context = context;
 
 			InitializeComponent();
+
+			addNewRecordBtn.Click += (source, args) => AddVacancy?.Invoke();
 		}
 
-		public Action AddAgency { get; set; }
-		public Action<AgencyModel> EditAgency { get; set; }
-		public Func<AgencyModel, Task> DeleteAgency { get; set; }
 		public Action AddVacancy { get; set; }
 		public Action<VacancyModel> EditVacancy { get; set; }
+		public Action<VacancyModel> ShowCandidates { get; set; }
 		public Func<VacancyModel, Task> DeleteVacancy { get; set; }
+		public Func<EmployerModel, Task> DeleteEmployer { get; set; }
 
-        public IEnumerable<AgencyModel> Agencies
-		{
-			set => dataGridView1.LoadData(value, "Name");
-		}
 
 		public IEnumerable<VacancyModel> Vacancies
 		{
-			set => dataGridView2.LoadData(value, "Position", "Salary", "AgencyName");
+			set => vacanciesDataGridView.LoadData(value, "Position", "Salary", "AgencyName");
+		}
+
+		public IEnumerable<EmployerModel> Employers
+		{
+			set => vacanciesDataGridView.LoadData(value, "Name");
 		}
 
 		public new void Show()
@@ -49,109 +51,80 @@ namespace RecruitmentAgency.UI
             }
         }
 
-		private void addNewRecordBtn_Click(object sender, EventArgs e)
-		{
-			switch (tabControl1.SelectedTab.Name)
-			{
-				case nameof(agenciesTabPage):
-					AddAgency?.Invoke();
-					break;
-				case nameof(vacanciesTabPage):
-					AddVacancy?.Invoke();
-					break;
-			}
-        }
-
 		private void editRecordBtn_Click(object sender, EventArgs e)
 		{
-			switch (tabControl1.SelectedTab.Name)
-			{
-				case nameof(agenciesTabPage):
-					var selectedRow = dataGridView1.GetSelectedRow();
+            var selectedRow = vacanciesDataGridView.GetSelectedRow();
 
-					var selectedAgency = new AgencyModel()
-					{
-						Name = selectedRow.Cells[nameof(agencyNameColumn)].Value.ToString()
-					};
+            var selectedVacancy = new VacancyModel()
+            {
+                Position = selectedRow.Cells[nameof(vacancyPositionColumn)].Value.ToString(),
+                Salary = Convert.ToInt32(selectedRow.Cells[nameof(vacancySalaryColumn)].Value),
+                EmployerName = selectedRow.Cells[nameof(vacancySalaryColumn)].Value.ToString()
+            };
 
-					EditAgency?.Invoke(selectedAgency);
-					break;
-
-				case nameof(vacanciesTabPage):
-					selectedRow = dataGridView2.GetSelectedRow();
-
-					var selectedVacancy = new VacancyModel()
-					{
-						Position = selectedRow.Cells[nameof(vacancyPositionColumn)].Value.ToString(),
-						Salary = Convert.ToInt32(selectedRow.Cells[nameof(vacancySalaryColumn)].Value),
-						AgencyName = selectedRow.Cells[nameof(vacancySalaryColumn)].Value.ToString()
-					};
-
-					EditVacancy?.Invoke(selectedVacancy);
-					break;
-			}
-		}
+            EditVacancy?.Invoke(selectedVacancy);
+        }
 
 		private async void removeRecordBtn_Click(object sender, EventArgs e)
         {
+			DataGridViewRow selectedRow;
+
 			switch (tabControl1.SelectedTab.Name)
 			{
-				case nameof(agenciesTabPage):
-					var selectedRow = dataGridView1.GetSelectedRow();
+                case nameof(vacanciesTabPage):
+                    selectedRow = vacanciesDataGridView.GetSelectedRow();
 
-					var selectedAgency = new AgencyModel()
+                    var selectedVacancy = new VacancyModel()
+                    {
+                        Position = selectedRow.Cells[nameof(vacancyPositionColumn)].Value.ToString(),
+                        Salary = Convert.ToInt32(selectedRow.Cells[nameof(vacancySalaryColumn)].Value),
+                        EmployerName = selectedRow.Cells[nameof(vacancySalaryColumn)].Value.ToString()
+                    };
+
+                    await DeleteVacancy?.Invoke(selectedVacancy);
+                    break;
+				case nameof(employersTabPage):
+					selectedRow = employersDataGridView.GetSelectedRow();
+
+					var selectedEmployer = new EmployerModel
 					{
-						Name = selectedRow.Cells[nameof(agencyNameColumn)].Value.ToString()
+						Name = selectedRow.Cells[nameof(organizationNameColumn)].Value.ToString()
 					};
 
-					await DeleteAgency?.Invoke(selectedAgency);
+					await DeleteEmployer?.Invoke(selectedEmployer);
 					break;
+            }
+		}
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+			switch (tabControl1.SelectedTab.Name)
+            {
 				case nameof(vacanciesTabPage):
-					selectedRow = dataGridView2.GetSelectedRow();
-
-					var selectedVacancy = new VacancyModel()
-					{
-						Position = selectedRow.Cells[nameof(vacancyPositionColumn)].Value.ToString(),
-						Salary = Convert.ToInt32(selectedRow.Cells[nameof(vacancySalaryColumn)].Value),
-						AgencyName = selectedRow.Cells[nameof(vacancySalaryColumn)].Value.ToString()
-					};
-
-					await DeleteVacancy?.Invoke(selectedVacancy);
+					addNewRecordBtn.Enabled = true;
+					editRecordBtn.Enabled = true;
+					showCandidatesBtn.Enabled = true;
 					break;
-			}
+				case nameof(employersTabPage):
+					addNewRecordBtn.Enabled = false;
+					editRecordBtn.Enabled = false;
+					showCandidatesBtn.Enabled = false;
+					break;
+            }
+        }
+
+        private void showCandidatesBtn_Click(object sender, EventArgs e)
+        {
+			var selectedRow = vacanciesDataGridView.GetSelectedRow();
+
+			var selectedVacancy = new VacancyModel()
+			{
+				Position = selectedRow.Cells[nameof(vacancyPositionColumn)].Value.ToString(),
+				Salary = Convert.ToInt32(selectedRow.Cells[nameof(vacancySalaryColumn)].Value),
+				EmployerName = selectedRow.Cells[nameof(vacancySalaryColumn)].Value.ToString()
+			};
+
+			ShowCandidates?.Invoke(selectedVacancy);
 		}
     }
-
-    internal static class DataGridViewExtension
-	{
-		public static void LoadData<TRecord>(this DataGridView dataGridView, IEnumerable<TRecord> records, params string[] properties)
-			where TRecord : class
-		{
-			dataGridView.Rows.Clear();
-
-			foreach (var record in records)
-			{
-				List<object> values = new();
-
-				foreach (var property in record.GetType().GetProperties())
-				{
-					if (!properties.Any(p => p == property.Name))
-						continue;
-
-					var value = property.GetValue(record);
-
-					values.Add(value);
-				}
-
-				dataGridView.Rows.Add(values.ToArray());
-			}
-		}
-
-		public static DataGridViewRow GetSelectedRow(this DataGridView dataGridView)
-        {
-			var selectedRowIndex = dataGridView.SelectedCells[0].RowIndex;
-
-			return dataGridView.Rows[selectedRowIndex];
-        }
-	}
 }

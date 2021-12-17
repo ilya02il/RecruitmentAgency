@@ -36,7 +36,7 @@ namespace RecruitmentAgency.UI.Implementations
         {
             Login = loginTextBox.Text,
             Password = passwordTextBox.Text,
-            RoleId = Roles.Agency
+            RoleId = Roles.Candidate
         };
 
         public string[] Agencies

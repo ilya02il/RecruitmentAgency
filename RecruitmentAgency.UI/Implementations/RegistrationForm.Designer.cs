@@ -44,9 +44,9 @@ namespace RecruitmentAgency.UI.Implementations
             // loginLabel
             // 
             this.loginLabel.AutoSize = true;
-            this.loginLabel.Location = new System.Drawing.Point(36, 29);
+            this.loginLabel.Location = new System.Drawing.Point(12, 14);
             this.loginLabel.Name = "loginLabel";
-            this.loginLabel.Size = new System.Drawing.Size(55, 20);
+            this.loginLabel.Size = new System.Drawing.Size(44, 15);
             this.loginLabel.TabIndex = 0;
             this.loginLabel.Text = "Логин:";
             // 
@@ -54,26 +54,28 @@ namespace RecruitmentAgency.UI.Implementations
             // 
             this.loginTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.loginTextBox.Location = new System.Drawing.Point(199, 26);
+            this.loginTextBox.Location = new System.Drawing.Point(154, 11);
+            this.loginTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.loginTextBox.Name = "loginTextBox";
-            this.loginTextBox.Size = new System.Drawing.Size(254, 27);
+            this.loginTextBox.Size = new System.Drawing.Size(219, 23);
             this.loginTextBox.TabIndex = 1;
             // 
             // passwordTextBox
             // 
             this.passwordTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.passwordTextBox.Location = new System.Drawing.Point(199, 59);
+            this.passwordTextBox.Location = new System.Drawing.Point(154, 38);
+            this.passwordTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.passwordTextBox.Name = "passwordTextBox";
-            this.passwordTextBox.Size = new System.Drawing.Size(254, 27);
+            this.passwordTextBox.Size = new System.Drawing.Size(219, 23);
             this.passwordTextBox.TabIndex = 3;
             // 
             // passwordLabel
             // 
             this.passwordLabel.AutoSize = true;
-            this.passwordLabel.Location = new System.Drawing.Point(36, 62);
+            this.passwordLabel.Location = new System.Drawing.Point(12, 41);
             this.passwordLabel.Name = "passwordLabel";
-            this.passwordLabel.Size = new System.Drawing.Size(65, 20);
+            this.passwordLabel.Size = new System.Drawing.Size(52, 15);
             this.passwordLabel.TabIndex = 2;
             this.passwordLabel.Text = "Пароль:";
             // 
@@ -81,36 +83,39 @@ namespace RecruitmentAgency.UI.Implementations
             // 
             this.confirmPasswordTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.confirmPasswordTextBox.Location = new System.Drawing.Point(199, 92);
+            this.confirmPasswordTextBox.Location = new System.Drawing.Point(154, 65);
+            this.confirmPasswordTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.confirmPasswordTextBox.Name = "confirmPasswordTextBox";
-            this.confirmPasswordTextBox.Size = new System.Drawing.Size(254, 27);
+            this.confirmPasswordTextBox.Size = new System.Drawing.Size(219, 23);
             this.confirmPasswordTextBox.TabIndex = 5;
             // 
             // confirmPasswordLabel
             // 
             this.confirmPasswordLabel.AutoSize = true;
-            this.confirmPasswordLabel.Location = new System.Drawing.Point(36, 95);
+            this.confirmPasswordLabel.Location = new System.Drawing.Point(12, 68);
             this.confirmPasswordLabel.Name = "confirmPasswordLabel";
-            this.confirmPasswordLabel.Size = new System.Drawing.Size(157, 20);
+            this.confirmPasswordLabel.Size = new System.Drawing.Size(123, 15);
             this.confirmPasswordLabel.TabIndex = 4;
             this.confirmPasswordLabel.Text = "Подтвердите пароль:";
             // 
             // signUpBtn
             // 
             this.signUpBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.signUpBtn.Location = new System.Drawing.Point(292, 168);
+            this.signUpBtn.Location = new System.Drawing.Point(288, 139);
+            this.signUpBtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.signUpBtn.Name = "signUpBtn";
-            this.signUpBtn.Size = new System.Drawing.Size(162, 29);
+            this.signUpBtn.Size = new System.Drawing.Size(85, 22);
             this.signUpBtn.TabIndex = 6;
-            this.signUpBtn.Text = "Зарегистрироваться";
+            this.signUpBtn.Text = "Продолжить";
             this.signUpBtn.UseVisualStyleBackColor = true;
             // 
             // cancelBtn
             // 
             this.cancelBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cancelBtn.Location = new System.Drawing.Point(37, 168);
+            this.cancelBtn.Location = new System.Drawing.Point(12, 139);
+            this.cancelBtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cancelBtn.Name = "cancelBtn";
-            this.cancelBtn.Size = new System.Drawing.Size(94, 29);
+            this.cancelBtn.Size = new System.Drawing.Size(85, 22);
             this.cancelBtn.TabIndex = 7;
             this.cancelBtn.Text = "Отмена";
             this.cancelBtn.UseVisualStyleBackColor = true;
@@ -118,25 +123,29 @@ namespace RecruitmentAgency.UI.Implementations
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(37, 128);
+            this.label1.Location = new System.Drawing.Point(12, 95);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(146, 20);
+            this.label1.Size = new System.Drawing.Size(67, 15);
             this.label1.TabIndex = 8;
-            this.label1.Text = "Выберите агенство:";
+            this.label1.Text = "Я являюсь:";
             // 
             // agencyComboBox
             // 
             this.agencyComboBox.FormattingEnabled = true;
-            this.agencyComboBox.Location = new System.Drawing.Point(199, 125);
+            this.agencyComboBox.Items.AddRange(new object[] {
+            "Соискателем",
+            "Работодателем"});
+            this.agencyComboBox.Location = new System.Drawing.Point(154, 92);
+            this.agencyComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.agencyComboBox.Name = "agencyComboBox";
-            this.agencyComboBox.Size = new System.Drawing.Size(254, 28);
+            this.agencyComboBox.Size = new System.Drawing.Size(219, 23);
             this.agencyComboBox.TabIndex = 9;
             // 
             // RegistrationForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(494, 209);
+            this.ClientSize = new System.Drawing.Size(385, 172);
             this.Controls.Add(this.agencyComboBox);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cancelBtn);
@@ -147,6 +156,7 @@ namespace RecruitmentAgency.UI.Implementations
             this.Controls.Add(this.passwordLabel);
             this.Controls.Add(this.loginTextBox);
             this.Controls.Add(this.loginLabel);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "RegistrationForm";
             this.Text = "Регистрация";
             this.ResumeLayout(false);

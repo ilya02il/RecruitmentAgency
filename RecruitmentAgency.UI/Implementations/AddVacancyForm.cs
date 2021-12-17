@@ -11,16 +11,27 @@ namespace RecruitmentAgency.UI
     {
         private Label _positionLabel;
         private Label _salaryLabel;
-        private Label _agencyNameLabel;
+        private Label _employerNameLabel;
         private TextBox _positionTextBox;
         private TextBox _salaryTextBox;
-        private ComboBox _agencyNameComboBox;
+        private ComboBox _employerNameComboBox;
         public AddVacancyForm() : base()
         {
-            _positionLabel = new Label
+            _employerNameLabel = new Label
             {
                 AutoSize = true,
                 Location = new Point(12, 15),
+                Name = "employerNameLabel",
+                Size = new Size(112, 15),
+                TabIndex = 6,
+                Text = "Название агенства:",
+                Anchor = AnchorStyles.Top | AnchorStyles.Left
+            };
+
+            _positionLabel = new Label
+            {
+                AutoSize = true,
+                Location = new Point(12, 44),
                 Name = "positionLabel",
                 Size = new Size(72, 15),
                 TabIndex = 0,
@@ -31,7 +42,7 @@ namespace RecruitmentAgency.UI
             _salaryLabel = new Label
             {
                 AutoSize = true,
-                Location = new Point(12, 44),
+                Location = new Point(12, 73),
                 Name = "salaryLabel",
                 Size = new Size(44, 15),
                 TabIndex = 4,
@@ -39,20 +50,19 @@ namespace RecruitmentAgency.UI
                 Anchor = AnchorStyles.Top | AnchorStyles.Left
             };
 
-            _agencyNameLabel = new Label
+            _employerNameComboBox = new ComboBox
             {
-                AutoSize = true,
-                Location = new Point(12, 73),
-                Name = "agencyNameLabel",
-                Size = new Size(112, 15),
-                TabIndex = 6,
-                Text = "Название агенства:",
-                Anchor = AnchorStyles.Top | AnchorStyles.Left
+                FormattingEnabled = true,
+                Location = new Point(130, 12),
+                Name = "employerNameComboBox",
+                Size = new Size(242, 23),
+                TabIndex = 7,
+                Anchor = AnchorStyles.Top | (AnchorStyles.Left | AnchorStyles.Right)
             };
 
             _positionTextBox = new TextBox
             {
-                Location = new Point(130, 12),
+                Location = new Point(130, 41),
                 Name = "positionTextBox",
                 Size = new Size(242, 23),
                 TabIndex = 1,
@@ -61,20 +71,10 @@ namespace RecruitmentAgency.UI
 
             _salaryTextBox = new TextBox
             {
-                Location = new Point(130, 41),
+                Location = new Point(130, 70),
                 Name = "salaryTextBox",
                 Size = new Size(242, 23),
                 TabIndex = 5,
-                Anchor = AnchorStyles.Top | (AnchorStyles.Left | AnchorStyles.Right)
-            };
-
-            _agencyNameComboBox = new ComboBox
-            {
-                FormattingEnabled = true,
-                Location = new Point(130, 70),
-                Name = "agencyNameComboBox",
-                Size = new Size(242, 23),
-                TabIndex = 7,
                 Anchor = AnchorStyles.Top | (AnchorStyles.Left | AnchorStyles.Right)
             };
 
@@ -83,10 +83,10 @@ namespace RecruitmentAgency.UI
 
             Controls.Add(_positionLabel);
             Controls.Add(_salaryLabel);
-            Controls.Add(_agencyNameLabel);
+            Controls.Add(_employerNameLabel);
             Controls.Add(_positionTextBox);
             Controls.Add(_salaryTextBox);
-            Controls.Add(_agencyNameComboBox);
+            Controls.Add(_employerNameComboBox);
         }
 
         public VacancyModel NewModel
@@ -97,14 +97,14 @@ namespace RecruitmentAgency.UI
                 {
                     Position = _positionTextBox.Text,
                     Salary = Convert.ToInt32(_salaryTextBox.Text),
-                    AgencyName = _agencyNameComboBox.Text
+                    EmployerName = _employerNameComboBox.Text
                 };
             }
         }
 
         public string[] Arguments
         {
-            set => _agencyNameComboBox.Items.AddRange(value);
+            set => _employerNameComboBox.Items.AddRange(value);
         }
     }
 }

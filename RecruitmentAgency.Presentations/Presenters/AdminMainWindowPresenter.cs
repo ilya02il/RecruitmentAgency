@@ -9,63 +9,55 @@ namespace RecruitmentAgency.Presentations.Presenters
 {
     public class AdminMainWindowPresenter : BasePresenter<IAdminMainView>
 	{
-		private readonly IAgencyService _agencyService;
 		private readonly IVacancyService _vacancyService;
-		public AdminMainWindowPresenter(IApplicationController controller, IAdminMainView view, IAgencyService agencyService, IVacancyService vacancyService)
+		private readonly IEmployerService _employerService;
+
+		public AdminMainWindowPresenter(IApplicationController controller, IAdminMainView view, IVacancyService vacancyService, IEmployerService employerService)
 			: base(controller, view)
 		{
-			_agencyService = agencyService;
 			_vacancyService = vacancyService;
-
-			View.AddAgency += () =>
-			{
-				Controller.Run<AddAgencyWindowPresenter>();
-				View.Agencies = _agencyService.GetAllAgencies();
-			};
+			_employerService = employerService;
 
 			View.AddVacancy += () =>
 			{
-				var agenciesNames = _agencyService.GetAllAgencies().Select(a => a.Name).ToArray();
+				var employersNames = _employerService.GetAllEmployers()
+					.Select(e => e.Name)
+					.ToArray();
 
-                Controller.Run<AddVacancyWindowPresenter, string>(agenciesNames);
+                Controller.Run<AddVacancyWindowPresenter, string>(employersNames);
 				View.Vacancies = _vacancyService.GetAllVacancies();
 			};
 
-			View.EditAgency += EditAgency;
-			View.DeleteAgency += DeleteAgency;
 			View.DeleteVacancy += DeleteVacancy;
+            View.DeleteEmployer += DeleteEmployer;
 		}
 
         public override void Run()
         {
-			View.Agencies = _agencyService.GetAllAgencies();
+			View.Employers = _employerService.GetAllEmployers();
 			View.Vacancies = _vacancyService.GetAllVacancies();
 			View.Show();
 		}
 
-		private void EditAgency(AgencyModel agency)
+        //private void EditVacancy(VacancyModel vacancy)
+        //{
+        //    Controller.Run<EditVacancyWindowPresenter, VacancyModel>(vacancy);
+        //    View.Vacancies = _vacancyService.GetAllVacancies();
+        //}
+        private async Task DeleteVacancy(VacancyModel vacancy)
         {
-			Controller.Run<EditAgencyWindowPresenter, AgencyModel>(agency);
-			View.Agencies = _agencyService.GetAllAgencies();
+            await _vacancyService.DeleteVacancy(v => v.Position == vacancy.Position &&
+                v.Salary == vacancy.Salary &&
+                v.Employer.Name == vacancy.EmployerName);
+
+            View.Vacancies = _vacancyService.GetAllVacancies();
         }
-        private async Task DeleteAgency(AgencyModel agency)
+
+        private async Task DeleteEmployer(EmployerModel employer)
         {
-			await _agencyService.DeleteAgency(a => a.Name == agency.Name);
-			View.Agencies = _agencyService.GetAllAgencies();
-		}
+            await _employerService.DeleteEmployer(employer);
 
-		//private void EditVacancy(VacancyModel vacancy)
-		//{
-		//	Controller.Run<EditVacancyWindowPresenter, VacancyModel>(vacancy);
-		//	View.Vacancies = _vacancyService.GetAllVacancies();
-		//}
-		private async Task DeleteVacancy(VacancyModel vacancy)
-		{
-			await _vacancyService.DeleteVacancy(v => v.Position == vacancy.Position &&
-				v.Salary == vacancy.Salary &&
-				v.Agency.Name == vacancy.AgencyName);
-
-			View.Vacancies = _vacancyService.GetAllVacancies();
-		}
-	}
+            View.Vacancies = _vacancyService.GetAllVacancies();
+        }
+    }
 }
