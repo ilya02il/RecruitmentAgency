@@ -9,7 +9,7 @@ namespace RecruitmentAgency.DAL.Contracts
 {
 	public interface IDbRepository
 	{
-		Task<int> Add<T>(T newEntity) where T : class, IEntity;
+		int Add<T>(T newEntity) where T : class, IEntity;
 		Task AddRange<T>(IEnumerable<T> newEntities) where T : class, IEntity;
 		void Attach<T>(T entity) where T : class, IEntity;
 		IQueryable<T> Get<T>(Expression<Func<T, bool>> selector) where T : class, IEntity;

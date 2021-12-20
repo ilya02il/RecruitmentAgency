@@ -11,6 +11,19 @@ namespace RecruitmentAgency.UI.Profiles
 			CreateMap<UserEntity, UserModel>();
 			CreateMap<UserModel, UserEntity>();
 
+			CreateMap<CandidateModel, CandidateInfoEntity>();
+			CreateMap<CandidateInfoEntity, CandidateModel>();
+
+			CreateMap<EmployerInfoEntity, EmployerModel>();
+			CreateMap<EmployerModel, EmployerInfoEntity>();
+
+			CreateMap<VacancyEntity, VacancyModel>()
+				.ForPath(dest => dest.EmployerName,
+				opt => opt.MapFrom(src => src.Employer.Name));
+			CreateMap<VacancyModel, VacancyEntity>()
+				.ForPath(dest => dest.Employer.Name,
+				opt => opt.MapFrom(src => src.EmployerName));
+
 			//CreateMap<AgencyEntity, AgencyModel>();
 			//CreateMap<AgencyModel, AgencyEntity>();
 

@@ -31,16 +31,34 @@ namespace RecruitmentAgency.Presentations.Presenters
 
         private async Task Register()
         {
-            try
+            if (View.Mode)
             {
-                await _userService.Register(View.NewUser);
-
+                await _userService.RegisterCandidate(View.NewUser, View.NewCandidateInfo);
                 View.Close();
+                return;
             }
-            catch(Exception exp)
-            {
-                View.ShowMessage(exp.Message);
-            }
+
+            await _userService.RegisterEmployer(View.NewUser, View.NewEmployerInfo);
+
+            View.Close();
+
+            //try
+            //{
+            //    if (View.Mode)
+            //    {
+            //        await _userService.RegisterCandidate(View.NewUser, View.NewCandidateInfo);
+            //        View.Close();
+            //        return;
+            //    }
+
+            //    await _userService.RegisterEmployer(View.NewUser, View.NewEmployerInfo);
+
+            //    View.Close();
+            //}
+            //catch(Exception exp)
+            //{
+            //    View.ShowMessage(exp.Message);
+            //}
         }
     }
 }

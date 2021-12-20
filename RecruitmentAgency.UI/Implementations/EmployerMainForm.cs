@@ -20,6 +20,8 @@ namespace RecruitmentAgency.UI.Implementations
             set => vacanciesDataGridView.LoadData(value, "Position", "Salary");
         }
 
+        public EmployerModel CurrentEmployer { get; set; }
+
         private readonly ApplicationContext _context;
 
         public EmployerMainForm(ApplicationContext context)
@@ -53,7 +55,7 @@ namespace RecruitmentAgency.UI.Implementations
             {
                 Position = selectedRow.Cells[nameof(vacancyPositionColumn)].Value.ToString(),
                 Salary = Convert.ToInt32(selectedRow.Cells[nameof(vacancySalaryColumn)].Value),
-                EmployerName = selectedRow.Cells[nameof(vacancySalaryColumn)].Value.ToString()
+                EmployerName = CurrentEmployer.Name
             };
 
             EditVacancy?.Invoke(selectedVacancy);
@@ -67,7 +69,7 @@ namespace RecruitmentAgency.UI.Implementations
             {
                 Position = selectedRow.Cells[nameof(vacancyPositionColumn)].Value.ToString(),
                 Salary = Convert.ToInt32(selectedRow.Cells[nameof(vacancySalaryColumn)].Value),
-                EmployerName = selectedRow.Cells[nameof(vacancySalaryColumn)].Value.ToString()
+                EmployerName = CurrentEmployer.Name
             };
 
             await DeleteVacancy?.Invoke(selectedVacancy);
@@ -81,7 +83,7 @@ namespace RecruitmentAgency.UI.Implementations
             {
                 Position = selectedRow.Cells[nameof(vacancyPositionColumn)].Value.ToString(),
                 Salary = Convert.ToInt32(selectedRow.Cells[nameof(vacancySalaryColumn)].Value),
-                EmployerName = selectedRow.Cells[nameof(vacancySalaryColumn)].Value.ToString()
+                EmployerName = CurrentEmployer.Name
             };
 
             ShowCandidates?.Invoke(selectedVacancy);

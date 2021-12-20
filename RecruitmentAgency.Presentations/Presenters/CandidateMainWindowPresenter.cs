@@ -17,15 +17,23 @@ namespace RecruitmentAgency.Presentations.Presenters
 
             View.RespondToVacancy += vacancy =>
             {
-
+                _vacancyService.AppendCandidate(vacancy, _currentCandidate);
             };
         }
 
         public override void Run(params CandidateModel[] arguments)
         {
+            if (arguments.Length == 0)
+            {
+                View.Vacancies = _vacancyService.GetAllVacancies();
+                View.Show();
+                return;
+            }
+
             _currentCandidate = arguments[0];
 
             View.Vacancies = _vacancyService.GetAllVacancies();
+            View.Show();
         }
 
         public override void Run(CandidateModel argument)
@@ -33,6 +41,7 @@ namespace RecruitmentAgency.Presentations.Presenters
             _currentCandidate = argument;
 
             View.Vacancies = _vacancyService.GetAllVacancies();
+            View.Show();
         }
     }
 }

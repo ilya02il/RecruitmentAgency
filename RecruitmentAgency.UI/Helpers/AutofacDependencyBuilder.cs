@@ -33,6 +33,16 @@ namespace RecruitmentAgency.UI.Helpers
 				.InstancePerDependency();
 
 			containerBuilder
+				.RegisterType<ShowCandidatesEmployerForm>()
+				.As<IShowCandidatesEmployerView>()
+				.InstancePerDependency();
+
+			containerBuilder
+				.RegisterType<CandidateMainForm>()
+				.As<ICandidateMainView>()
+				.InstancePerDependency();
+
+			containerBuilder
 				.RegisterType<LoginForm>()
 				.As<ILoginView>()
 				.InstancePerDependency();
@@ -87,6 +97,16 @@ namespace RecruitmentAgency.UI.Helpers
 
 			containerBuilder
 				.RegisterType<EmployerMainWindowPresenter>()
+				.AsSelf()
+				.SingleInstance();
+
+			containerBuilder
+				.RegisterType<ShowCandidatesEmployerWindowPresenter>()
+				.AsSelf()
+				.SingleInstance();
+
+			containerBuilder
+				.RegisterType<CandidateMainWindowPresenter>()
 				.AsSelf()
 				.SingleInstance();
 

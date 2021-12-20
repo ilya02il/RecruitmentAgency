@@ -19,12 +19,16 @@ namespace RecruitmentAgency.Models.Implementations
 
         public IEnumerable<EmployerModel> GetAllEmployers()
         {
-            var employersEntities = _dbRepository.GetAll<EmployerInfoEntity>();
+            var employersEntities = _dbRepository.GetAll<EmployerInfoEntity>().ToList();
 
-            return employersEntities.Select(e => new EmployerModel
+            var employersModels = new List<EmployerModel>();
+
+            foreach (var employer in employersEntities)
             {
-                Name = e.Name
-            });
+                employersModels.Add(new EmployerModel { Name = employer.Name });
+            }
+
+            return employersModels;
         }
 
         public async Task DeleteEmployer(EmployerModel employer)
@@ -32,7 +36,11 @@ namespace RecruitmentAgency.Models.Implementations
             var employerEntity = await _dbRepository.GetAll<EmployerInfoEntity>()
                 .FirstAsync(e => e.Name == employer.Name);
 
+            var userEntity = await _dbRepository.GetAll<UserEntity>()
+                .FirstAsync(u => u.Id == employerEntity.UserId);
+
             await _dbRepository.Remove(employerEntity);
+            await _dbRepository.Remove(userEntity);
             await _dbRepository.SaveChangesAsync();
         }
     }

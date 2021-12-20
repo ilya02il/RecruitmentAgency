@@ -10,14 +10,14 @@ namespace RecruitmentAgency.UI
 {
     public partial class AdminMainForm : Form, IAdminMainView
 	{
-		private readonly ApplicationContext _context;
-		public AdminMainForm(ApplicationContext context)
+		public IEnumerable<VacancyModel> Vacancies
 		{
-			_context = context;
+			set => vacanciesDataGridView.LoadData(value, "EmployerName", "Position", "Salary");
+		}
 
-			InitializeComponent();
-
-			addNewRecordBtn.Click += (source, args) => AddVacancy?.Invoke();
+		public IEnumerable<EmployerModel> Employers
+		{
+			set => employersDataGridView.LoadData(value, "Name");
 		}
 
 		public Action AddVacancy { get; set; }
@@ -27,14 +27,15 @@ namespace RecruitmentAgency.UI
 		public Func<EmployerModel, Task> DeleteEmployer { get; set; }
 
 
-		public IEnumerable<VacancyModel> Vacancies
-		{
-			set => vacanciesDataGridView.LoadData(value, "Position", "Salary", "AgencyName");
-		}
+		private readonly ApplicationContext _context;
 
-		public IEnumerable<EmployerModel> Employers
+		public AdminMainForm(ApplicationContext context)
 		{
-			set => vacanciesDataGridView.LoadData(value, "Name");
+			_context = context;
+
+			InitializeComponent();
+
+			addNewRecordBtn.Click += (source, args) => AddVacancy?.Invoke();
 		}
 
 		public new void Show()

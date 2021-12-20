@@ -41,10 +41,10 @@ namespace RecruitmentAgency.DAL.Implementations
 			return entitiesCollection;
 		}
 
-		public async Task<int> Add<T>(T newEntity) where T : class, IEntity
+		public int Add<T>(T newEntity) where T : class, IEntity
 		{
-			var entity = await _context.Set<T>().AddAsync(newEntity);
-			return entity.Entity.Id;
+			var result = _context.Set<T>().Add(newEntity);
+			return result.Entity.Id;
 		}
 
 		public async Task AddRange<T>(IEnumerable<T> newEntities) where T : class, IEntity

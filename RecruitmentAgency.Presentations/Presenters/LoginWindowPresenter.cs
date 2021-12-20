@@ -39,10 +39,15 @@ namespace RecruitmentAgency.Presentations.Presenters
                         Controller.Run<AdminMainWindowPresenter>();
                         break;
                     case Roles.Employer:
-                        Controller.Run<EmployerMainWindowPresenter>();
+                        var employer = await _userService.GetEmployerInfo(user);
+
+                        Controller.Run<EmployerMainWindowPresenter, EmployerModel>(employer);
                         break;
                     case Roles.Candidate:
-                        Controller.Run<AgencyMainWindowPresenter>();
+
+                        var candidate = await _userService.GetCandidateInfo(user);
+
+                        Controller.Run<CandidateMainWindowPresenter, CandidateModel>(candidate);
                         break;
                 }
 

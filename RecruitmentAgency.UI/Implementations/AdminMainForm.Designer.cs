@@ -209,7 +209,7 @@ namespace RecruitmentAgency.UI
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.toolStrip1);
             this.Name = "AdminMainForm";
-            this.Text = "Form1";
+            this.Text = "Агентство по трудоустройству";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();

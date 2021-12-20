@@ -10,8 +10,8 @@ using RecruitmentAgancy.DAL;
 namespace RecruitmentAgency.DAL.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20211217130727_RemovePositionAndSalaryFromCandidate")]
-    partial class RemovePositionAndSalaryFromCandidate
+    [Migration("20211219084622_InitMigration")]
+    partial class InitMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -151,25 +151,18 @@ namespace RecruitmentAgency.DAL.Migrations
 
             modelBuilder.Entity("RecruitmentAgency.DAL.Entities.VacancyCandidatesEntity", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("VacancyId")
+                        .HasColumnType("int");
 
                     b.Property<int>("CandidateId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("VacancyId")
+                    b.Property<int>("Id")
                         .HasColumnType("int");
 
-                    b.Property<int>("VancancyId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
+                    b.HasKey("VacancyId", "CandidateId");
 
                     b.HasIndex("CandidateId");
-
-                    b.HasIndex("VacancyId");
 
                     b.ToTable("VacancyCandidates");
                 });
@@ -203,7 +196,7 @@ namespace RecruitmentAgency.DAL.Migrations
                     b.HasOne("RecruitmentAgency.DAL.Entities.UserEntity", "User")
                         .WithOne("CandidateInfo")
                         .HasForeignKey("RecruitmentAgency.DAL.Entities.CandidateInfoEntity", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("User");
@@ -214,7 +207,7 @@ namespace RecruitmentAgency.DAL.Migrations
                     b.HasOne("RecruitmentAgency.DAL.Entities.UserEntity", "User")
                         .WithOne("EmployerInfo")
                         .HasForeignKey("RecruitmentAgency.DAL.Entities.EmployerInfoEntity", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("User");
@@ -241,7 +234,9 @@ namespace RecruitmentAgency.DAL.Migrations
 
                     b.HasOne("RecruitmentAgency.DAL.Entities.VacancyEntity", "Vacancy")
                         .WithMany("VacancyCandidates")
-                        .HasForeignKey("VacancyId");
+                        .HasForeignKey("VacancyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Candidate");
 

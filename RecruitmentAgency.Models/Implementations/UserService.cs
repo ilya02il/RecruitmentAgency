@@ -33,20 +33,44 @@ namespace RecruitmentAgency.Models.Implementations
             return model;
         }
 
-        public async Task<int> Register(UserModel newUser)
+        private int Register(UserModel newUser)
         {
-            var users = await _dbRepository.GetAll<UserEntity>().FirstOrDefaultAsync(u => u.Login == newUser.Login);
+            var user = _dbRepository.GetAll<UserEntity>()
+                .FirstOrDefault(u => u.Login == newUser.Login);
 
-            if (users != null)
+            if (user != null)
                 throw new Exception("User with this login already exist.");
 
             var entity = _mapper.Map<UserEntity>(newUser);
 
-            var result = await _dbRepository.Add(entity);
+            _dbRepository.Add(entity);
+            _dbRepository.SaveChanges();
 
-            await _dbRepository.SaveChangesAsync();
+            var result = entity.Id;
 
             return result;
+        }
+
+        public async Task RegisterCandidate(UserModel userInfo, CandidateModel candidateInfo)
+        {
+            var result = Register(userInfo);
+
+            var candidateEntity = _mapper.Map<CandidateInfoEntity>(candidateInfo);
+            candidateEntity.UserId = result;
+
+            _dbRepository.Add(candidateEntity);
+            await _dbRepository.SaveChangesAsync();
+        }
+
+        public async Task RegisterEmployer(UserModel userInfo, EmployerModel employerInfo)
+        {
+            var result = Register(userInfo);
+
+            var employerEntity = _mapper.Map<EmployerInfoEntity>(employerInfo);
+            employerEntity.UserId = result;
+
+            _dbRepository.Add(employerEntity);
+            await _dbRepository.SaveChangesAsync();
         }
 
         public async Task UpdateUserInfo(UserModel user)
@@ -70,6 +94,22 @@ namespace RecruitmentAgency.Models.Implementations
             var usersEntities = _dbRepository.GetAll<UserEntity>();
 
             return usersEntities.Select(e => _mapper.Map<UserModel>(e));
+        }
+
+        public async Task<EmployerModel> GetEmployerInfo(UserModel user)
+        {
+            var employerInfoEntity = await _dbRepository.GetAll<EmployerInfoEntity>()
+                .FirstAsync(e => e.UserId == user.Id);
+
+            return _mapper.Map<EmployerModel>(employerInfoEntity);
+        }
+
+        public async Task<CandidateModel> GetCandidateInfo(UserModel user)
+        {
+            var candidateInfoEntity = await _dbRepository.GetAll<CandidateInfoEntity>()
+                .FirstAsync(e => e.UserId == user.Id);
+
+            return _mapper.Map<CandidateModel>(candidateInfoEntity);
         }
     }
 }

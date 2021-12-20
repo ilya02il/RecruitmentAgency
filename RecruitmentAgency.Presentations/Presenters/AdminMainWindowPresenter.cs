@@ -57,7 +57,7 @@ namespace RecruitmentAgency.Presentations.Presenters
         {
             await _employerService.DeleteEmployer(employer);
 
-            View.Vacancies = _vacancyService.GetAllVacancies();
+            View.Employers = _employerService.GetAllEmployers();
         }
     }
 }

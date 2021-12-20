@@ -10,11 +10,9 @@ namespace RecruitmentAgency.DAL.Entities
         [Required]
         public string Initials { get; set; }
         [Required]
-        public DateTime DateOfBorn { get; set; }
+        public DateTime DateOfBirth { get; set; }
 
-        [Required]
         public int UserId { get; set; }
-        [Required]
         public UserEntity User { get; set; }
 
         public ICollection<VacancyCandidatesEntity> VacancyCandidates { get; set; }

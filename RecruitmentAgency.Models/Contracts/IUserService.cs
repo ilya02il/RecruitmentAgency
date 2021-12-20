@@ -6,9 +6,12 @@ namespace RecruitmentAgency.Models.Contracts
     public interface IUserService
     {
         Task<UserModel> Authenticate(UserModel user);
-        Task<int> Register(UserModel newUser);
+        Task RegisterCandidate(UserModel userInfo, CandidateModel candidateInfo);
+        Task RegisterEmployer(UserModel userInfo, EmployerModel employerInfo);
         Task UpdateUserInfo(UserModel user);
         Task DeleteUser(UserModel user);
         IEnumerable<UserModel> LoadUsers();
+        Task<EmployerModel> GetEmployerInfo(UserModel user);
+        Task<CandidateModel> GetCandidateInfo(UserModel user);
     }
 }

@@ -41,46 +41,46 @@ namespace RecruitmentAgency.UI.Implementations
             // loginLabel
             // 
             this.loginLabel.AutoSize = true;
-            this.loginLabel.Location = new System.Drawing.Point(16, 23);
+            this.loginLabel.Location = new System.Drawing.Point(14, 17);
             this.loginLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.loginLabel.Name = "loginLabel";
-            this.loginLabel.Size = new System.Drawing.Size(59, 20);
+            this.loginLabel.Size = new System.Drawing.Size(47, 15);
             this.loginLabel.TabIndex = 0;
             this.loginLabel.Text = "Логин: ";
             // 
             // loginTextBox
             // 
-            this.loginTextBox.Location = new System.Drawing.Point(92, 18);
-            this.loginTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.loginTextBox.Location = new System.Drawing.Point(80, 14);
+            this.loginTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.loginTextBox.Name = "loginTextBox";
-            this.loginTextBox.Size = new System.Drawing.Size(237, 27);
+            this.loginTextBox.Size = new System.Drawing.Size(208, 23);
             this.loginTextBox.TabIndex = 1;
             // 
             // passwordTextBox
             // 
-            this.passwordTextBox.Location = new System.Drawing.Point(92, 58);
-            this.passwordTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.passwordTextBox.Location = new System.Drawing.Point(80, 44);
+            this.passwordTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.passwordTextBox.Name = "passwordTextBox";
-            this.passwordTextBox.Size = new System.Drawing.Size(237, 27);
+            this.passwordTextBox.Size = new System.Drawing.Size(208, 23);
             this.passwordTextBox.TabIndex = 3;
             this.passwordTextBox.UseSystemPasswordChar = true;
             // 
             // passwordLabel
             // 
             this.passwordLabel.AutoSize = true;
-            this.passwordLabel.Location = new System.Drawing.Point(16, 63);
+            this.passwordLabel.Location = new System.Drawing.Point(14, 47);
             this.passwordLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.passwordLabel.Name = "passwordLabel";
-            this.passwordLabel.Size = new System.Drawing.Size(69, 20);
+            this.passwordLabel.Size = new System.Drawing.Size(55, 15);
             this.passwordLabel.TabIndex = 2;
             this.passwordLabel.Text = "Пароль: ";
             // 
             // signInButton
             // 
-            this.signInButton.Location = new System.Drawing.Point(116, 172);
-            this.signInButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.signInButton.Location = new System.Drawing.Point(106, 129);
+            this.signInButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.signInButton.Name = "signInButton";
-            this.signInButton.Size = new System.Drawing.Size(100, 35);
+            this.signInButton.Size = new System.Drawing.Size(88, 26);
             this.signInButton.TabIndex = 4;
             this.signInButton.Text = "ОК";
             this.signInButton.UseVisualStyleBackColor = true;
@@ -89,29 +89,29 @@ namespace RecruitmentAgency.UI.Implementations
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(68, 122);
+            this.label2.Location = new System.Drawing.Point(72, 92);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(201, 20);
+            this.label2.Size = new System.Drawing.Size(157, 15);
             this.label2.TabIndex = 8;
             this.label2.Text = "Еще не зарегистрированы?";
             // 
             // registrationLinkLabel
             // 
             this.registrationLinkLabel.AutoSize = true;
-            this.registrationLinkLabel.Location = new System.Drawing.Point(92, 142);
+            this.registrationLinkLabel.Location = new System.Drawing.Point(91, 106);
             this.registrationLinkLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.registrationLinkLabel.Name = "registrationLinkLabel";
-            this.registrationLinkLabel.Size = new System.Drawing.Size(151, 20);
+            this.registrationLinkLabel.Size = new System.Drawing.Size(119, 15);
             this.registrationLinkLabel.TabIndex = 9;
             this.registrationLinkLabel.TabStop = true;
             this.registrationLinkLabel.Text = "Зарегистрироваться";
             // 
             // LoginForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(347, 225);
+            this.ClientSize = new System.Drawing.Size(304, 169);
             this.Controls.Add(this.registrationLinkLabel);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.signInButton);
@@ -120,7 +120,7 @@ namespace RecruitmentAgency.UI.Implementations
             this.Controls.Add(this.loginTextBox);
             this.Controls.Add(this.loginLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "LoginForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Авторизация";

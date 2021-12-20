@@ -10,8 +10,8 @@ using RecruitmentAgancy.DAL;
 namespace RecruitmentAgency.DAL.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20211217125539_InitMigration")]
-    partial class InitMigration
+    [Migration("20211219090658_AddInfoEntitiesSeeds")]
+    partial class AddInfoEntitiesSeeds
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -35,13 +35,6 @@ namespace RecruitmentAgency.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Position")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Salary")
-                        .HasColumnType("int");
-
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
@@ -51,6 +44,15 @@ namespace RecruitmentAgency.DAL.Migrations
                         .IsUnique();
 
                     b.ToTable("CandidatesInfo");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            DateOfBorn = new DateTime(2021, 12, 19, 16, 6, 58, 113, DateTimeKind.Local).AddTicks(3356),
+                            Initials = "Иванов Иван Иванович",
+                            UserId = 3
+                        });
                 });
 
             modelBuilder.Entity("RecruitmentAgency.DAL.Entities.EmployerInfoEntity", b =>
@@ -73,6 +75,14 @@ namespace RecruitmentAgency.DAL.Migrations
                         .IsUnique();
 
                     b.ToTable("EmployersInfo");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Трудовичок",
+                            UserId = 2
+                        });
                 });
 
             modelBuilder.Entity("RecruitmentAgency.DAL.Entities.RoleEntity", b =>
@@ -158,25 +168,15 @@ namespace RecruitmentAgency.DAL.Migrations
 
             modelBuilder.Entity("RecruitmentAgency.DAL.Entities.VacancyCandidatesEntity", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("VacancyId")
+                        .HasColumnType("int");
 
                     b.Property<int>("CandidateId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("VacancyId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("VancancyId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
+                    b.HasKey("VacancyId", "CandidateId");
 
                     b.HasIndex("CandidateId");
-
-                    b.HasIndex("VacancyId");
 
                     b.ToTable("VacancyCandidates");
                 });
@@ -210,7 +210,7 @@ namespace RecruitmentAgency.DAL.Migrations
                     b.HasOne("RecruitmentAgency.DAL.Entities.UserEntity", "User")
                         .WithOne("CandidateInfo")
                         .HasForeignKey("RecruitmentAgency.DAL.Entities.CandidateInfoEntity", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("User");
@@ -221,7 +221,7 @@ namespace RecruitmentAgency.DAL.Migrations
                     b.HasOne("RecruitmentAgency.DAL.Entities.UserEntity", "User")
                         .WithOne("EmployerInfo")
                         .HasForeignKey("RecruitmentAgency.DAL.Entities.EmployerInfoEntity", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("User");
@@ -248,7 +248,9 @@ namespace RecruitmentAgency.DAL.Migrations
 
                     b.HasOne("RecruitmentAgency.DAL.Entities.VacancyEntity", "Vacancy")
                         .WithMany("VacancyCandidates")
-                        .HasForeignKey("VacancyId");
+                        .HasForeignKey("VacancyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Candidate");
 

@@ -30,14 +30,14 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ShowCandidatesEmployerForm));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.acceptBtn = new System.Windows.Forms.ToolStripButton();
             this.declineBtn = new System.Windows.Forms.ToolStripButton();
             this.printBtn = new System.Windows.Forms.ToolStripButton();
+            this.candidatesDataGridView = new System.Windows.Forms.DataGridView();
             this.initialsColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dateOfBirthColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.candidatesDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -52,24 +52,6 @@
             this.toolStrip1.Size = new System.Drawing.Size(800, 35);
             this.toolStrip1.TabIndex = 2;
             this.toolStrip1.Text = "toolStrip1";
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.initialsColumn,
-            this.dateOfBirthColumn});
-            this.dataGridView1.Location = new System.Drawing.Point(19, 45);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(10);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.RowTemplate.Height = 25;
-            this.dataGridView1.Size = new System.Drawing.Size(762, 386);
-            this.dataGridView1.TabIndex = 3;
             // 
             // acceptBtn
             // 
@@ -104,6 +86,24 @@
             this.printBtn.Text = "toolStripButton3";
             this.printBtn.ToolTipText = "Распечатать анкету кандидата";
             // 
+            // candidatesDataGridView
+            // 
+            this.candidatesDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.candidatesDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.candidatesDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.candidatesDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.initialsColumn,
+            this.dateOfBirthColumn});
+            this.candidatesDataGridView.Location = new System.Drawing.Point(19, 45);
+            this.candidatesDataGridView.Margin = new System.Windows.Forms.Padding(10);
+            this.candidatesDataGridView.Name = "candidatesDataGridView";
+            this.candidatesDataGridView.RowHeadersVisible = false;
+            this.candidatesDataGridView.RowTemplate.Height = 25;
+            this.candidatesDataGridView.Size = new System.Drawing.Size(762, 386);
+            this.candidatesDataGridView.TabIndex = 3;
+            // 
             // initialsColumn
             // 
             this.initialsColumn.HeaderText = "ФИО";
@@ -119,13 +119,14 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.candidatesDataGridView);
             this.Controls.Add(this.toolStrip1);
             this.Name = "ShowCandidatesEmployerForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Кандидаты на вакансию";
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.candidatesDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -137,7 +138,7 @@
         private System.Windows.Forms.ToolStripButton acceptBtn;
         private System.Windows.Forms.ToolStripButton declineBtn;
         private System.Windows.Forms.ToolStripButton printBtn;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView candidatesDataGridView;
         private System.Windows.Forms.DataGridViewTextBoxColumn initialsColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn dateOfBirthColumn;
     }

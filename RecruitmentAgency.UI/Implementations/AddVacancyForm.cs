@@ -24,7 +24,7 @@ namespace RecruitmentAgency.UI
                 Name = "employerNameLabel",
                 Size = new Size(112, 15),
                 TabIndex = 6,
-                Text = "Название агенства:",
+                Text = "Название работодателя:",
                 Anchor = AnchorStyles.Top | AnchorStyles.Left
             };
 
@@ -79,7 +79,7 @@ namespace RecruitmentAgency.UI
             };
 
             Name = "AddVacancyForm";
-            Text = "Добавление вакансии";
+            Text = "Редактирование вакансии";
 
             Controls.Add(_positionLabel);
             Controls.Add(_salaryLabel);

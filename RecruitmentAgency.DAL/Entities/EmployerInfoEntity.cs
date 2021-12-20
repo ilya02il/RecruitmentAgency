@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RecruitmentAgency.DAL.Entities
 {
@@ -8,9 +9,7 @@ namespace RecruitmentAgency.DAL.Entities
         [Required]
         public string Name { get; set; }
 
-        [Required]
         public int UserId { get; set; }
-        [Required]
         public UserEntity User { get; set; }
     }
 }

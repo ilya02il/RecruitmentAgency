@@ -19,12 +19,13 @@ namespace RecruitmentAgency.Models.Implementations
 		public VacancyService(IDbRepository dbRepository, IMapper mapper)
 		{
 			_dbRepository = dbRepository;
-			_mapper = mapper;
+			_mapper = mapper; 
 		}
 
 		public IEnumerable<VacancyModel> GetAllVacancies()
 		{
-			var entities = _dbRepository.GetAll<VacancyEntity>();
+			var entities = _dbRepository.GetAll<VacancyEntity>()
+				.Include(v => v.Employer);
 
 			if (entities == null)
 				throw new NullReferenceException();
@@ -42,15 +43,19 @@ namespace RecruitmentAgency.Models.Implementations
 			entity.EmployerId = employer.Id;
 			entity.Employer = null;
 
-			var result = await _dbRepository.Add(entity);
+			_dbRepository.Add(entity);
 			await _dbRepository.SaveChangesAsync();
 
-			return result;
+			return 1;
 		}
 
 		public async Task DeleteVacancy(VacancyModel vacancy)
 		{
-			var entity = _mapper.Map<VacancyEntity>(vacancy);
+			var entity = await _dbRepository.GetAll<VacancyEntity>()
+				.Include(v => v.Employer)
+				.FirstOrDefaultAsync(v => v.Position == vacancy.Position &&
+				v.Salary == vacancy.Salary &&
+				v.Employer.Name == vacancy.EmployerName);
 
 			await _dbRepository.Remove(entity);
 			await _dbRepository.SaveChangesAsync();
@@ -83,33 +88,42 @@ namespace RecruitmentAgency.Models.Implementations
 
 		public IEnumerable<CandidateModel> GetVacancyCandidates(VacancyModel vacancy)
         {
+			var vacancyEntity = _dbRepository.GetAll<VacancyEntity>()
+				.Include(v => v.Employer)
+				.First(v => v.Employer.Name == vacancy.EmployerName &&
+					v.Position == vacancy.Position &&
+					v.Salary == vacancy.Salary);
+
 			var vacancyCandidates = _dbRepository.GetAll<VacancyCandidatesEntity>()
 				.Include(vc => vc.Candidate)
-				.Where(vc => vc.VacancyId == vacancy.Id);
+				.Where(vc => vc.VacancyId == vacancyEntity.Id)
+				.ToList();
 
 			return vacancyCandidates.Select(vc => new CandidateModel
 			{
 				Initials = vc.Candidate.Initials,
-				DateOfBirth = vc.Candidate.DateOfBorn,
+				DateOfBirth = vc.Candidate.DateOfBirth,
 				Position = vacancy.Position,
 				Salary = vacancy.Salary
 			});
         }
 
-		public async Task AppendCandidate(CandidateModel candidate)
+		public async Task AppendCandidate(VacancyModel vacancy, CandidateModel candidate)
         {
 			var candidateEntity = await _dbRepository.GetAll<CandidateInfoEntity>()
-				.FirstAsync(c => c.Initials == candidate.Initials && c.DateOfBorn == candidate.DateOfBirth);
+				.FirstAsync(c => c.Initials == candidate.Initials && c.DateOfBirth == candidate.DateOfBirth);
 
 			var vacancyEntity = await _dbRepository.GetAll<VacancyEntity>()
-				.FirstAsync(v => v.Position == candidate.Position && v.Salary == candidate.Salary);
+				.FirstAsync(v => v.Position == vacancy.Position && v.Salary == vacancy.Salary);
 
             var vacancyCandidate = new VacancyCandidatesEntity
             {
 				CandidateId = candidateEntity.Id,
-				VacancyId = candidateEntity.Id
+				VacancyId = vacancyEntity.Id
 			};
 
+			_dbRepository.Add(vacancyCandidate);
+			await _dbRepository.SaveChangesAsync();
         }
     }
 }

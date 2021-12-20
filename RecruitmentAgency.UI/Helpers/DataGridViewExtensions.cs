@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace RecruitmentAgency.UI.Helpers
@@ -16,14 +15,15 @@ namespace RecruitmentAgency.UI.Helpers
 			{
 				List<object> values = new();
 
-				foreach (var property in record.GetType().GetProperties())
-				{
-					if (!properties.Any(p => p == property.Name))
+				for (int i = 0; i < properties.Length; i++)
+				{ 
+					foreach (var property in record.GetType().GetProperties())
+					{
+						if (properties[i] == property.Name)
+							values.Add(property.GetValue(record));
+
 						continue;
-
-					var value = property.GetValue(record);
-
-					values.Add(value);
+					}
 				}
 
 				dataGridView.Rows.Add(values.ToArray());
@@ -32,7 +32,7 @@ namespace RecruitmentAgency.UI.Helpers
 
 		public static DataGridViewRow GetSelectedRow(this DataGridView dataGridView)
 		{
-			if (dataGridView.SelectedCells.Count > 0)
+			if (dataGridView.SelectedCells.Count == 0)
 				throw new Exception("You haven't selected any cells.");
 
 			var selectedRowIndex = dataGridView.SelectedCells[0].RowIndex;

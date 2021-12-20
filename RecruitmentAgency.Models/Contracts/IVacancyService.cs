@@ -13,5 +13,7 @@ namespace RecruitmentAgency.Models.Contracts
 		Task DeleteVacancy(VacancyModel vacancy);
 		Task DeleteVacancy(Expression<Func<VacancyEntity, bool>> predicate);
 		Task UpdateVacancyInfo(VacancyModel vacancy);
+		IEnumerable<CandidateModel> GetVacancyCandidates(VacancyModel vacancy);
+		Task AppendCandidate(VacancyModel vacancy, CandidateModel candidate);
 	}
 }

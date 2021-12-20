@@ -49,8 +49,6 @@ namespace RecruitmentAgency.DAL.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Initials = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DateOfBorn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Position = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Salary = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -61,7 +59,7 @@ namespace RecruitmentAgency.DAL.Migrations
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -81,7 +79,7 @@ namespace RecruitmentAgency.DAL.Migrations
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -109,15 +107,13 @@ namespace RecruitmentAgency.DAL.Migrations
                 name: "VacancyCandidates",
                 columns: table => new
                 {
+                    VacancyId = table.Column<int>(type: "int", nullable: false),
+                    CandidateId = table.Column<int>(type: "int", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    VancancyId = table.Column<int>(type: "int", nullable: false),
-                    VacancyId = table.Column<int>(type: "int", nullable: true),
-                    CandidateId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_VacancyCandidates", x => x.Id);
+                    table.PrimaryKey("PK_VacancyCandidates", x => new { x.VacancyId, x.CandidateId });
                     table.ForeignKey(
                         name: "FK_VacancyCandidates_CandidatesInfo_CandidateId",
                         column: x => x.CandidateId,
@@ -129,7 +125,7 @@ namespace RecruitmentAgency.DAL.Migrations
                         column: x => x.VacancyId,
                         principalTable: "Vacancies",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
@@ -188,11 +184,6 @@ namespace RecruitmentAgency.DAL.Migrations
                 name: "IX_VacancyCandidates_CandidateId",
                 table: "VacancyCandidates",
                 column: "CandidateId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_VacancyCandidates_VacancyId",
-                table: "VacancyCandidates",
-                column: "VacancyId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

@@ -33,11 +33,11 @@
             this.addNewRecordBtn = new System.Windows.Forms.ToolStripButton();
             this.editRecordBtn = new System.Windows.Forms.ToolStripButton();
             this.removeRecordBtn = new System.Windows.Forms.ToolStripButton();
+            this.showCandidatesBtn = new System.Windows.Forms.ToolStripButton();
             this.label1 = new System.Windows.Forms.Label();
             this.vacanciesDataGridView = new System.Windows.Forms.DataGridView();
             this.vacancyPositionColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.vacancySalaryColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.showCandidatesBtn = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.vacanciesDataGridView)).BeginInit();
             this.SuspendLayout();
@@ -88,6 +88,17 @@
             this.removeRecordBtn.Text = "toolStripButton3";
             this.removeRecordBtn.Click += new System.EventHandler(this.removeRecordBtn_Click);
             // 
+            // showCandidatesBtn
+            // 
+            this.showCandidatesBtn.AutoSize = false;
+            this.showCandidatesBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.showCandidatesBtn.Image = ((System.Drawing.Image)(resources.GetObject("showCandidatesBtn.Image")));
+            this.showCandidatesBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.showCandidatesBtn.Name = "showCandidatesBtn";
+            this.showCandidatesBtn.Size = new System.Drawing.Size(32, 32);
+            this.showCandidatesBtn.Text = "toolStripButton1";
+            this.showCandidatesBtn.Click += new System.EventHandler(this.showCandidatesBtn_Click);
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -128,17 +139,6 @@
             this.vacancySalaryColumn.MinimumWidth = 6;
             this.vacancySalaryColumn.Name = "vacancySalaryColumn";
             // 
-            // showCandidatesBtn
-            // 
-            this.showCandidatesBtn.AutoSize = false;
-            this.showCandidatesBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.showCandidatesBtn.Image = ((System.Drawing.Image)(resources.GetObject("showCandidatesBtn.Image")));
-            this.showCandidatesBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.showCandidatesBtn.Name = "showCandidatesBtn";
-            this.showCandidatesBtn.Size = new System.Drawing.Size(32, 32);
-            this.showCandidatesBtn.Text = "toolStripButton1";
-            this.showCandidatesBtn.Click += new System.EventHandler(this.showCandidatesBtn_Click);
-            // 
             // EmployerMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -148,7 +148,9 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.toolStrip1);
             this.Name = "EmployerMainForm";
-            this.Text = "Агенство по трудоустройству";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Агентство по трудоустройству";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.vacanciesDataGridView)).EndInit();

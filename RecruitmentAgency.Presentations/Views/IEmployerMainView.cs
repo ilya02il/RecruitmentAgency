@@ -12,6 +12,7 @@ namespace RecruitmentAgency.Presentations.Views
         Func<VacancyModel, Task> DeleteVacancy { get; set; }
         Action<VacancyModel> EditVacancy { get; set; }
         IEnumerable<VacancyModel> Vacancies { set; }
+        EmployerModel CurrentEmployer { get; set; }
         Action<VacancyModel> ShowCandidates { get; set; }
     }
 }
